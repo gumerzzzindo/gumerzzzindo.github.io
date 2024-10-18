@@ -1,17 +1,13 @@
 ---
-layout: page
+layout: default
 title: "About Me"
 permalink: /about-me/
 ---
 
 # About Me
 
-¡Hola! Soy Aitor S., un apasionado de la ciberseguridad y la tecnología. Actualmente estoy en proceso de formación en el certificado Cisco CyberOps, donde estoy adquiriendo conocimientos fundamentales sobre operaciones de seguridad y respuesta a incidentes.
+¡Hola! Soy Aitor, un estudiante de ciberseguridad con un gran interés en este campo. Tanto es así que mi sueño es dedicarme profesionalmente al mundo de la ciberseguridad. Llevo varios años gestionando la seguridad de mis servidores, y uso Linux desde la versión **19.04**. Para ser real esa no fue la primera vez que use Linux sino la que use un terminal a sabiendas de lo que hacia, ya que me descarge una version muy primitiva de **Tails 2.0** para entrar a Tor, ya que vi un foro sobre como era la manera mas segura de entrar. Por esa epoca tambien descarge **Kali** pero no me acuerdo exactamente de la version, ya que no sabia nada de sistemas.
 
-Soy estudiante y me dedico a aprender sobre análisis forense digital, en el que he trabajado en proyectos que involucran el análisis de servidores comprometidos, como la detección de malware de minería de criptomonedas. He utilizado diversas herramientas forenses como Autopsy, FTK Imager y Volatility3 para investigar incidentes y proporcionar informes claros y concisos.
-
-Además, estoy interesado en participar en hackatones de ciberseguridad y eventos relacionados con Red Team, donde puedo aplicar mis habilidades y aprender de otros profesionales en el campo. Me entusiasma seguir desarrollando mis conocimientos en análisis de malware y mejorar mi destreza en el área.
-
-En mi tiempo libre, disfruto explorando la intersección entre la tecnología y la seguridad, así como manteniéndome al día con las últimas tendencias en ciberseguridad. También estoy trabajando en crear un portafolio donde pueda presentar mis proyectos y write-ups, con la esperanza de abrir nuevas oportunidades laborales en este fascinante campo.
+Mi viaje en el mundo de IT comenzó en 2019, cuando cursé el ciclo de Sistemas Microinformáticos y Redes. Al principio, lo que más me interesaba era el hardware (como a casi todos, supongo). Después, aprendí sobre sistemas y descubrí Linux, lo que me pareció increíble por lo versátil que es, ¡puede ejecutarse incluso en una nevera! Ese mismo año, también aprendí sobre seguridad informática, donde nos enseñaron acerca del malware más común, aunque ya tenía algunas nociones básicas.
 
 **¡Gracias por visitar mi sitio!**
