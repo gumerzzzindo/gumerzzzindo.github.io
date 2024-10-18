@@ -137,12 +137,6 @@ author:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
-# Main:
-main:
-  - title: "About me"
-    url: /test/
-  - title: "Posts"
-    url: /_post/
 
 # Site Footer
 footer:
