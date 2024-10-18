@@ -5,4 +5,4 @@ main:
   - title: "About me"
     url: /about-me/
   - title: "Posts"
-    url: /_post/
+    url: /posts/
