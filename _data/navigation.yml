@@ -3,6 +3,6 @@ main:
   - title: "Write-ups"
     url: /write-ups/
   - title: "About me"
-    url: /about-me/
+    url: /about-me/me.md
   - title: "Posts"
     url: /_post/
