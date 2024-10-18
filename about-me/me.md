@@ -1,3 +1,9 @@
+---
+layout: page
+title: "About Me"
+permalink: /about-me/
+---
+
 # About Me
 
 ¡Hola! Soy Aitor S., un apasionado de la ciberseguridad y la tecnología. Actualmente estoy en proceso de formación en el certificado Cisco CyberOps, donde estoy adquiriendo conocimientos fundamentales sobre operaciones de seguridad y respuesta a incidentes.
