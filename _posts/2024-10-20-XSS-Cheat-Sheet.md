@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Apuntes sobre XSS (Cross-Site Scripting)
 
 ## ¿Qué es XSS?
