@@ -1,4 +1,10 @@
-
+---
+layout: post
+title: "Mi Write-up de Docker Labs"
+categories: [htb]
+tags: [pwn, buffer-overflow]
+date: 2024-11-07
+---
 # Maquina domain dockerlabs
 
 ## Se nos presenta un escenario en el cual una maquina de docker con los siguientes servicios:
