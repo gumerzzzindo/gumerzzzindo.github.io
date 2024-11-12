@@ -24,8 +24,11 @@ sudo dpkg-reconfigure slapd
 
 ### a. Configuración usando phpldapadmin:
 
+Para instalar phpldapadmin y empezar a configurar el archivo principal.
+
 ```bash
 sudo apt-get install phpldapadmin
+sudo nano /etc/phpldapadmin/config.php
 ```
 
 
