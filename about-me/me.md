@@ -10,7 +10,7 @@ permalink: /about-me/
 
 ## Primer contacto con Linux
 
-Para ser real esa no fue la primera vez que use Linux sino la que use un terminal a sabiendas de lo que hacia, ya que me descarge una version muy primitiva de **Tails 2.0** para entrar a Tor, ya que vi un foro sobre como era la manera mas segura de entrar. Por esa epoca tambien descarge **Kali** pero no me acuerdo exactamente de la version, ya que no sabia nada de sistemas.
+Para ser real esa no fue la primera vez que use Linux sino la que use un terminal a sabiendas de lo que hacia, ya que me descarge una version muy primitiva de **Tails 2.0** para entrar a Tor, ya que vi un foro sobre como era la manera más segura de entrar. Por esa epoca tambien descarge **Kali** pero no me acuerdo exactamente de la version, ya que no sabia nada de sistemas.
 
 ## Estudios reglados
 
