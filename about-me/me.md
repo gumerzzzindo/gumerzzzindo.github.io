@@ -4,8 +4,6 @@ title: "About Me"
 permalink: /about-me/
 ---
 
-# About Me
-
 ¡Hola! Soy **Aitor**, estudiante apasionado de **ciberseguridad**. Mi objetivo es dedicarme profesionalmente a este fascinante campo, que no solo me interesa, sino que me impulsa a seguir aprendiendo y creciendo. Llevo varios años gestionando la seguridad de mis propios servidores y soy usuario habitual de **Linux** desde la versión **19.04**.
 
 ---
