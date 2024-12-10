@@ -1,8 +1,3 @@
----
-layout: post
-title: "Instalación y configuración de LDAP server"
----
-
 # SQLite Cheatsheet: Comandos Específicos de SQLite
 
 SQLite incluye comandos exclusivos que no forman parte del estándar SQL, generalmente usados para gestionar la consola interactiva de SQLite. Aquí tienes una guía con los comandos menos comunes:
