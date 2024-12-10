@@ -1,3 +1,8 @@
+---
+layout: post
+title: "Instalación y configuración de LDAP server"
+---
+
 # Resumen de la charla sobre IA Generativa, Tecnología Cuántica y Ciberseguridad
 
 **Fecha:** 2024-11-18  
