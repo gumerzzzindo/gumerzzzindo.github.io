@@ -1,8 +1,3 @@
----
-layout: post
-title: "Instalación y configuración de LDAP server"
----
-
 LDAP es un protocolo de red que permite gestionar servicios de directorio de una manera centralizada. Los directorios son bases de datos optimizadas para la lectura que almacenan información de forma jerárquica y se utilizan para gestionar y organizar información sobre usuarios, grupos, dispositivos y recursos dentro de una red.
 
 ## 1. Instalación
