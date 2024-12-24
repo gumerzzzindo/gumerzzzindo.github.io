@@ -31,7 +31,7 @@ gobuster dir -u http://sea.htb -w /usr/share/wordlists/dirb/common.txt
 
 Con el nombre y la versión del CMS, realicé una búsqueda y encontré un CVE relacionado con una vulnerabilidad en WonderCMS:
 
-***###CVE-2023-41425***
+***CVE-2023-41425***
 Este CVE describe una vulnerabilidad de Remote Code Execution (RCE) mediante Cross-Site Scripting (XSS).
 ## Paso 4: Explotación de la Vulnerabilidad (RCE con XSS)
 Para explotar esta vulnerabilidad, utilicé un exploit en Python que alojaba un servidor. Este servidor permitía ejecutar una reverse shell cuando el administrador accedía a una URL específica. La reverse shell se ejecutaba con los privilegios del usuario www-data.
