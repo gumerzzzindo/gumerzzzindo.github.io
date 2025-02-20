@@ -137,7 +137,12 @@ curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh
 
 ## ✅ Checklist
 
-✅ Verificar `sudo -l` 📋 ✅ Buscar binarios SUID/GUID 🎭 ✅ Analizar tareas cron ⏰ ✅ Revisar capabilities 🏗️ ✅ Buscar credenciales expuestas 🔐 ✅ Explotar versiones vulnerables ⚡
+✅ Verificar `sudo -l` 📋 
+✅ Buscar binarios SUID/GUID 🎭 
+✅ Analizar tareas cron ⏰ 
+✅ Revisar capabilities 🏗️ 
+✅ Buscar credenciales expuestas 🔐 
+✅ Explotar versiones vulnerables ⚡
 
 ## 📚 Recursos
 
