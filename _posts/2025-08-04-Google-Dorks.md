@@ -1,4 +1,12 @@
-
+---
+layout: post
+title: "Google Dorks - Técnicas Avanzadas de Búsqueda"
+date: 2025-08-04
+categories: [tutoriales, recon]
+tags: [google-dorks, osint, busqueda-avanzada, recon, enumeracion]
+excerpt: "Guía completa de Google Dorks para reconocimiento y OSINT"
+permalink: /tutoriales/google-dorks/
+---
 # 🕵️‍♀️ Dorks: Para Script Kiddies
 
 **Hacer Dorking** es una tarea de OSINT que sirve para buscar información de fuentes abiertas indexada.  
