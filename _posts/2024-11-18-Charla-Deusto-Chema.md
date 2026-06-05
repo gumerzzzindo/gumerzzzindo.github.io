@@ -1,3 +1,13 @@
+---
+layout: single
+title: "Resumen de la charla: IA Generativa, Cuántica y Ciberseguridad"
+date: 2024-11-18
+categories: [tutoriales]
+tags: [ia-generativa, ciberseguridad, quantum, charla]
+excerpt: "Resumen de la charla de Chema Alonso sobre IA, computación cuántica y ciberseguridad"
+author_profile: true
+---
+
 # Resumen de la charla sobre IA Generativa, Tecnología Cuántica y Ciberseguridad
 
 **Fecha:** 2024-11-18  
@@ -29,10 +39,10 @@ A continuación, se explican brevemente los puntos destacados de la charla, orga
 - **Generador**: Crea contenido sintético.  
 - **Discriminador**: Evalúa si el contenido es real o generado.  
 
-### DeepCamLive y HeadRenacimient  
+### DeepCamLive y HeadRenacimiento  
 
 - **DeepCamLive**: Herramienta para generación en tiempo real de contenido audiovisual con IA.  
-- **HeadRenacimient**: Técnica de reconstrucción facial basada en aprendizaje profundo.  
+- **HeadRenacimiento**: Técnica de reconstrucción facial basada en aprendizaje profundo.  
 
 ---
 
@@ -65,7 +75,7 @@ A continuación, se explican brevemente los puntos destacados de la charla, orga
 
 ## 3. **Ciberseguridad**  
 
-### BigDat2004 y CloudComputing2010  
+### BigData2004 y CloudComputing2010  
 
 - Evolución de tecnologías que incrementaron los riesgos de ataques masivos.  
 - Base para el desarrollo de sistemas más avanzados de seguridad en la nube.  
@@ -117,4 +127,4 @@ A continuación, se explican brevemente los puntos destacados de la charla, orga
 
 ## Reflexión Final  
 
-La charla destacó cómo la IA generativa, la computación cuántica y los enfoques avanzados de ciberseguridad se entrelazan para abordar desafíos modernos. Mientras que la IA impulsa la creación y análisis, la tecnología cuántica redefine la seguridad, y las estrategias de ciberseguridad evolucionan para adaptarse a nuevas amenazas.
+La charla destacó cómo la IA generativa, la computación cuántica y los enfoques avanzados de ciberseguridad se entrelazan para abordar desafíos modernos.
