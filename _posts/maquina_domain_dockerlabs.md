@@ -1,4 +1,12 @@
-
+---
+layout: post
+title: "Máquina Domain - DockerLabs"
+date: 2025-01-15
+categories: [writeups, dockerlabs]
+tags: [writeup, dockerlabs, active-directory, domain, ctf]
+excerpt: "Writeup detallado: Explotación de máquina Domain en DockerLabs"
+permalink: /writeups/domain-dockerlabs/
+---
 # Maquina domain dockerlabs
 
 ## Se nos presenta un escenario en el cual una maquina de docker con los siguientes servicios:
