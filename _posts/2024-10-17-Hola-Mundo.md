@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Hola Mundo - Bienvenido a mi blog"
+date: 2024-10-17
+categories: [blog]
+tags: [presentacion, bienvenida]
+excerpt: "Primer post del blog de ingeniería inversa"
+permalink: /inicio/hola-mundo/
+---
 # Este post es solo una prueba para los siguientes que se vienen, un saludo desde el ciberespacio.
 ## 11/10/2024
 #	Uso la herramienta rpcclient para enumerar usuarios de un dominio.
