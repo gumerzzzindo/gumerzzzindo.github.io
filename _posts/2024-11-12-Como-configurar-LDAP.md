@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Cómo Configurar LDAP"
+date: 2024-11-12
+categories: [tutoriales, infraestructura]
+tags: [ldap, directorio-activo, configuracion, red]
+excerpt: "Guía paso a paso para configurar LDAP en tu entorno"
+permalink: /tutoriales/configurar-ldap/
+---
 LDAP es un protocolo de red que permite gestionar servicios de directorio de una manera centralizada. Los directorios son bases de datos optimizadas para la lectura que almacenan información de forma jerárquica y se utilizan para gestionar y organizar información sobre usuarios, grupos, dispositivos y recursos dentro de una red.
 
 ## 1. Instalación
