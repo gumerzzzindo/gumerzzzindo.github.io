@@ -1,3 +1,13 @@
+---
+layout: post
+title: SQLite Cheatsheet
+date: 2024-12-10
+categories: [herramientas, bases-datos]
+tags: [sqlite, sql, cheatsheet, ingenieria-inversa, forensica]
+author: gumerzzzindo
+excerpt: "Guía rápida de comandos SQLite para análisis forense y ingeniería inversa"
+permalink: /tutoriales/sqlite-cheatsheet/
+---
 # SQLite Cheatsheet: Comandos Específicos de SQLite
 
 SQLite incluye comandos exclusivos que no forman parte del estándar SQL, generalmente usados para gestionar la consola interactiva de SQLite. Aquí tienes una guía con los comandos menos comunes:
