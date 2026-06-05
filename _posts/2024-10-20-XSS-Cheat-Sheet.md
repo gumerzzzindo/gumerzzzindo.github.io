@@ -1,5 +1,11 @@
 ---
-layout: default
+layout: single
+title: "XSS Cheat Sheet - Cross-Site Scripting"
+date: 2024-10-20
+categories: [tutoriales]
+tags: [xss, seguridad, web, vulnerabilidades]
+excerpt: "Guía completa de payloads XSS y técnicas de prevención"
+author_profile: true
 ---
 
 # Apuntes sobre XSS (Cross-Site Scripting)
