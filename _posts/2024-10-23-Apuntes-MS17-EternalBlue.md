@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Apuntes MS17-010 EternalBlue"
+date: 2024-10-23
+categories: [tutoriales, vulnerabilidades]
+tags: [eternalblue, ms17-010, exploit, windows, seguridad]
+excerpt: "Análisis detallado de la vulnerabilidad EternalBlue (MS17-010)"
+permalink: /tutoriales/eternalblue-ms17-010/
+---
 # Escaneo y Persistencia con CrackMapExec y Mimikatz
 
 ## Escaneo con CrackMapExec
