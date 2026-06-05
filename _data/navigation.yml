@@ -20,9 +20,6 @@ main:
   
   - title: "📖 Recursos"
     url: /recursos/
-  
-  - title: "🔍 Buscar"
-    url: /buscar/
-  
+    
   - title: "👤 About"
     url: /about-me/
