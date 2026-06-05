@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Escalada de Privilegios en Linux"
+date: 2025-02-20
+categories: [tutoriales, seguridad]
+tags: [privesc, linux, escalada-privilegios, pentesting, post-explotacion]
+excerpt: "Técnicas comunes de escalada de privilegios en sistemas Linux"
+permalink: /tutoriales/privesc-linux/
+---
 # PrivEsc en Linux
 
 PrivEsc es la abreviatura de *Privilege Escalation* (escalada de privilegios), un proceso fundamental en la post-explotación de sistemas comprometidos. Este documento sirve como referencia cuando se obtiene acceso a una máquina, ya sea mediante una webshell o un usuario del sistema a través de SSH.
