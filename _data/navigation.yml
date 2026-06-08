@@ -1,25 +1,9 @@
-# main links
 main:
-  - title: "🏠 Inicio"
+  - title: "Inicio"
     url: /
-  
-  - title: "📚 Tutoriales"
-    url: /tutoriales/
-    children:
-      - title: "Reverse Engineering"
-        url: /categorias/reverse-engineering/
-      - title: "Malware Analysis"
-        url: /categorias/malware/
-      - title: "Pentesting & Linux"
-        url: /categorias/tutoriales/
-      - title: "Herramientas"
-        url: /categorias/herramientas/
-  
-  - title: "🎯 Write-ups"
-    url: /writeups/
-  
-  - title: "📖 Recursos"
-    url: /recursos/
-    
-  - title: "👤 About"
+  - title: "Categorías"
+    url: /categories/
+  - title: "Acerca de"
     url: /about-me/
+  - title: "Buscar"
+    url: /buscar/
