@@ -1,3 +1,11 @@
+---layout: 
+posttitle: "Tutorial: Gestor de Contraseñas en Terminal con `pass`"
+date: 2024-12-12
+categories: [seguridad, terminal, herramientas]
+tags: [pass, gpg, contraseñas, linux]
+author: Gumerzzzindo
+excerpt: "Aprende a instalar y usar `pass`, un gestor de contraseñas minimalista y seguro para la terminal."
+---
 # Tutorial: Gestor de Contraseñas en Terminal con `pass`
 
 `pass` es un gestor de contraseñas ligero, seguro y fácil de usar desde la terminal. Este tutorial te guiará en su instalación, configuración y uso.
