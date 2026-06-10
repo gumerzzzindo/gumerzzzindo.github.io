@@ -1,1 +1,36 @@
+---
+layout: post
+title: "Análisis de Driver"
+date: 2026-06-10
+categories: [malware, analisis]
+tags: [trojan, malware-analysis, reverse-engineering, c2]
+excerpt: "Análisis profundo de malware 13ab592c51354e97611b4a77859f3ce7.bin : comportamiento, técnicas y IoCs"
+permalink: /analisis/asyncrat/
+---
+# Resumen del análisis del malware:  13ab592c51354e97611b4a77859f3ce7.bin 
 
+---
+## Información del fichero
+
+| Campo | Valor |
+|---|---|
+| **MD5** | `13ab592c51354e97611b4a77859f3ce7` |
+| **Nombre** | `13ab592c51354e97611b4a77859f3ce7.bin` |
+| **Tipo** | PE64 — Controlador (Driver) |
+| **Tamaño** | 2.09 MiB |
+| **Arquitectura** | AMD64 / 64-bit |
+| **Endianness** | Little Endian |
+| **Lenguaje** | ASMx64 |
+
+---
+
+## Características detectadas (DIE)
+
+| Característica | Detalle |
+|---|---|
+| **Sistema operativo** | Windows 10 (AMD64, 64-bit, Controlador) |
+| **Firma digital** | Windows Authenticode 2.0 [PKCS #7] |
+| **Protección** | Generic — Secciones anómalas (*Strange sections*) |
+| **Empaquetado** | Compressed or packed data — Alta entropía, Sección 7 (`.m2_`) comprimida |
+| **Overlay** | Binary — Desplazamiento `0x00215200`, Tamaño `0x10d0` |
+| **Certificado Overlay** | WinAuth 2.0 [PKCS #7] |
