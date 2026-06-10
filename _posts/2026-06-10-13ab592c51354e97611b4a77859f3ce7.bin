@@ -2,52 +2,54 @@
 layout: post
 title: "Análisis de Driver"
 date: 2026-06-10
-categories: [malware, analisis]
-tags: [trojan, malware-analysis, reverse-engineering, c2]
-excerpt: "Análisis profundo de malware 13ab592c51354e97611b4a77859f3ce7.bin : comportamiento, técnicas y IoCs"
+categories:
+  - malware
+  - analisis
+tags:
+  - trojan
+  - malware-analysis
+  - reverse-engineering
+  - c2
+excerpt: "Análisis técnico de 13ab592c51354e97611b4a77859f3ce7.bin: estructura, empaquetado, ofuscación e indicadores observados"
 permalink: /analisis/asyncrat/
 ---
 
-# Resumen del análisis del malware:  13ab592c51354e97611b4a77859f3ce7.bin 
+# Análisis de 13ab592c51354e97611b4a77859f3ce7.bin
+
+## Resumen
+
+Se analiza el fichero `13ab592c51354e97611b4a77859f3ce7.bin`, identificado como un controlador (driver) PE64 para Windows. Durante el análisis estático se observaron indicios de empaquetado u ofuscación, incluyendo secciones con alta entropía, datos aparentemente comprimidos o cifrados y la presencia de una firma Authenticode.
 
 ---
+
 ## Información del fichero
 
 | Campo | Valor |
-|---|---|
+|--------|--------|
 | **MD5** | `13ab592c51354e97611b4a77859f3ce7` |
 | **Nombre** | `13ab592c51354e97611b4a77859f3ce7.bin` |
-| **Tipo** | PE64 — Controlador (Driver) |
+| **Tipo** | PE64 (Driver) |
 | **Tamaño** | 2.09 MiB |
 | **Arquitectura** | AMD64 / 64-bit |
 | **Endianness** | Little Endian |
-| **Lenguaje** | ASMx64 |
+| **Lenguaje detectado** | ASM x64 |
 
 ---
 
-## Características detectadas (DIE)
+## Características detectadas (Detect It Easy)
 
 | Característica | Detalle |
-|---|---|
-| **Sistema operativo** | Windows 10 (AMD64, 64-bit, Controlador) |
-| **Firma digital** | Windows Authenticode 2.0 [PKCS #7] |
-| **Protección** | Generic — Secciones anómalas (*Strange sections*) |
-| **Empaquetado** | Compressed or packed data — Alta entropía, Sección 7 (`.m2_`) comprimida |
-| **Overlay** | Binary — Desplazamiento `0x00215200`, Tamaño `0x10d0` |
-| **Certificado Overlay** | WinAuth 2.0 [PKCS #7] |
-> ⚠️ La sección `.m2_` presenta alta entropía, indicativo de payload cifrado o comprimido en runtime. Consistente con el bloque de datos `dq` observado en IDA en el rango `0x14019FB38–0x1401A2766`.
+|----------------|----------|
+| **Sistema operativo** | Windows 10 (AMD64, 64-bit, Driver) |
+| **Firma digital** | Windows Authenticode 2.0 (PKCS #7) |
+| **Protección** | Secciones anómalas (*Strange Sections*) |
+| **Empaquetado** | Datos comprimidos o empaquetados; alta entropía en la sección `.m2_` |
+| **Overlay** | Presente en `0x00215200`, tamaño `0x10D0` |
+| **Certificado Overlay** | WinAuth 2.0 (PKCS #7) |
 
----
+> ⚠️ La sección `.m2_` presenta una entropía elevada, lo que puede indicar la presencia de datos comprimidos, cifrados o empaquetados.
 
-## Técnicas de ofuscación identificadas
+Esta observación es consistente con el bloque de datos definido mediante instrucciones `dq` observado en IDA dentro del rango:
 
-- **Junk code / Dead code** en el entry point para dificultar el desensamblado estático
-- **Inline decryption stub**: bloque de datos cifrados que se descifran en memoria antes de la ejecución del payload real
-- **Secciones no estándar** (`.m2_`) con alta entropía
-- Firma digital presente (posible abuso de certificado legítimo o cert robado)
-
----
-
-## Librerías / Imports
-
-> *(Sección a completar)*
+```text
+0x14019FB38 - 0x1401A2766
