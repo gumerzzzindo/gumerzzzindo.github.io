@@ -34,3 +34,19 @@ permalink: /analisis/asyncrat/
 | **Empaquetado** | Compressed or packed data — Alta entropía, Sección 7 (`.m2_`) comprimida |
 | **Overlay** | Binary — Desplazamiento `0x00215200`, Tamaño `0x10d0` |
 | **Certificado Overlay** | WinAuth 2.0 [PKCS #7] |
+> ⚠️ La sección `.m2_` presenta alta entropía, indicativo de payload cifrado o comprimido en runtime. Consistente con el bloque de datos `dq` observado en IDA en el rango `0x14019FB38–0x1401A2766`.
+
+---
+
+## Técnicas de ofuscación identificadas
+
+- **Junk code / Dead code** en el entry point para dificultar el desensamblado estático
+- **Inline decryption stub**: bloque de datos cifrados que se descifran en memoria antes de la ejecución del payload real
+- **Secciones no estándar** (`.m2_`) con alta entropía
+- Firma digital presente (posible abuso de certificado legítimo o cert robado)
+
+---
+
+## Librerías / Imports
+
+> *(Sección a completar)*
