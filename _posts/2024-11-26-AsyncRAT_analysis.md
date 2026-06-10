@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Análisis de AsyncRAT"
 date: 2024-11-26
 categories: [malware, analisis]
