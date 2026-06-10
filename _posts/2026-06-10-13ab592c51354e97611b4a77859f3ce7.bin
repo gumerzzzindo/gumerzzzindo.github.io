@@ -48,21 +48,35 @@ Se analiza el fichero `13ab592c51354e97611b4a77859f3ce7.bin`, identificado como 
 
 > ⚠️ La sección `.m2_` presenta una entropía elevada, lo que puede indicar la presencia de datos comprimidos, cifrados o empaquetados.
 
-Esta observación es consistente con el bloque de datos definido mediante instrucciones `dq` observado en IDA dentro del rango:
+Esta observación es consistente con el bloque de datos `dq` observado en IDA en el rango `0x14019FB38 - 0x1401A2766`.
 
-Necesito ver la página para darte un diagnóstico preciso.
-Fetched: Análisis de Driver
+---
 
-Ya veo el problema. El contenido se corta aquí:
-text
+## Librerías / Imports
 
-0x14019FB38 - 0x1401A2766
+> *(Sección a completar)*
 
-La causa: el bloque de código tiene una línea con backticks de apertura ```text pero no tiene el cierre ```. Jekyll/Liquid interpreta todo lo que sigue como parte del bloque de código y lo descarta o rompe el renderizado desde ese punto.
+---
 
-Busca esto en tu .md:
-markdown
+## Indicadores de Compromiso (IoCs)
 
-````text
-0x14019FB38 - 0x1401A2766
-````
+### Hashes
+
+| Tipo | Valor |
+|---|---|
+| **MD5** | `13ab592c51354e97611b4a77859f3ce7` |
+| **SHA1** | *(pendiente)* |
+| **SHA256** | *(pendiente)* |
+
+### Red (C2)
+
+| Tipo | Valor |
+|---|---|
+| **IPs** | *(pendiente)* |
+| **Dominios** | *(pendiente)* |
+
+### Ficheros creados
+
+| Ruta | Descripción |
+|---|---|
+| *(pendiente)* | *(pendiente)* |
