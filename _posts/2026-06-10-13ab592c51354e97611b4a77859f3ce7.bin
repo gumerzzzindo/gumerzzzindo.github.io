@@ -50,5 +50,19 @@ Se analiza el fichero `13ab592c51354e97611b4a77859f3ce7.bin`, identificado como 
 
 Esta observación es consistente con el bloque de datos definido mediante instrucciones `dq` observado en IDA dentro del rango:
 
-```text
+Necesito ver la página para darte un diagnóstico preciso.
+Fetched: Análisis de Driver
+
+Ya veo el problema. El contenido se corta aquí:
+text
+
 0x14019FB38 - 0x1401A2766
+
+La causa: el bloque de código tiene una línea con backticks de apertura ```text pero no tiene el cierre ```. Jekyll/Liquid interpreta todo lo que sigue como parte del bloque de código y lo descarta o rompe el renderizado desde ese punto.
+
+Busca esto en tu .md:
+markdown
+
+````text
+0x14019FB38 - 0x1401A2766
+````
