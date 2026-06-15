@@ -26,7 +26,7 @@
   {%- assign author_twitter = author.twitter | replace: "@", "" -%}
 {%- endif -%}
 
-{%- assign page_large_image = page.header.og_image | default: page.header.overlay_image | default: page.header.image | absolute_url | escape -%}
+{%- assign page_large_image = page.header.og_image | default: page.header.overlay_image | default: page.header.image | default: site.og_image | absolute_url | escape -%}
 {%- assign page_teaser_image = page.header.teaser | default: site.og_image | absolute_url | escape -%}
 {%- assign site_og_image = site.og_image | absolute_url | escape -%}
 {%- assign og_image_alt = page.header.og_image_alt | default: site.og_image_alt | escape -%}
