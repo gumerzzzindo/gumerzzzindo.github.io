@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Google Dorks - Técnicas Avanzadas de Búsqueda"
 date: 2025-08-04
 categories: [tutoriales, recon]

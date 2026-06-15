@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Tutorial: Gestor de Contraseñas en Terminal con `pass`"
 date: 2024-12-12
 categories: [seguridad, terminal, herramientas]

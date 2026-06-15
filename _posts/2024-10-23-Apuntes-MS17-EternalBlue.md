@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Apuntes MS17-010 EternalBlue"
 date: 2024-10-23
 categories: [tutoriales, vulnerabilidades]

@@ -1,9 +1,13 @@
 main:
   - title: "Inicio"
     url: /
-  - title: "Categorías"
-    url: /categories/
-  - title: "Acerca de"
-    url: /about-me/
+  - title: "Writeups"
+    url: /writeups/
+  - title: "Malware"
+    url: /categories/malware/
+  - title: "Tutoriales"
+    url: /tutoriales/
   - title: "Buscar"
     url: /buscar/
+  - title: "About"
+    url: /about-me/

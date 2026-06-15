@@ -1,30 +1,42 @@
 ---
-layout: post
-title: "Hola Mundo - Bienvenido a mi blog"
+layout: single
+title: "Hola Mundo"
 date: 2024-10-17
 categories: [blog]
-tags: [presentacion, bienvenida]
-excerpt: "Primer post del blog de ingeniería inversa"
+tags: [presentacion]
+excerpt: "Primer post — bienvenido al blog"
 permalink: /inicio/hola-mundo/
 ---
-# Este post es solo una prueba para los siguientes que se vienen, un saludo desde el ciberespacio.
-## 11/10/2024
-#	Uso la herramienta rpcclient para enumerar usuarios de un dominio.
-enumdomusers
-#	Para hacer fuerza bruta al SMB:
+
+Bienvenido. Este es mi blog sobre ciberseguridad, malware y hacking. Iré subiendo análisis, writeups de CTFs y apuntes técnicos.
+
+---
+
+## Primeros apuntes — Enumeración SMB
+
+```bash
+# Enumerar usuarios de dominio
+rpcclient -U "" <ip> -N
+> enumdomusers
+
+# Fuerza bruta SMB
 crackmapexec smb 172.17.0.2 -u macarena -p /usr/share/wordlists/rockyou.txt
-#	Para listar directorios/recursos de red:
+
+# Listar recursos compartidos
 smbclient -N -L //172.17.0.2
-#	Para conectar con smbclient:
+
+# Conectar a un recurso
 smbclient -U macarena //172.17.0.2/macarena
-		Nos pedira passwd
-## 15/10/24:
- Recolectar info:
-	Footprint-> Recolectar info atraves de internet.
-	No sabemos si nos buscan, esta publico en internet
-	Dominios, IP, Ubicación
- Fingerprint-> 
-	Pasiva-> escuchar con wireshark.
-	Activa-> mandar paquetes como un scan
- OSINT Framework-> Obtener info de fuentes publicas
-	Spidering: Crear un mapa de applicacion para conocer los puntos de acceso.
+```
+
+---
+
+## Conceptos de reconocimiento
+
+| Técnica | Descripción |
+|---|---|
+| **Footprint** | Recolectar info pública (dominios, IPs, ubicación) |
+| **Fingerprint pasivo** | Escucha pasiva con Wireshark |
+| **Fingerprint activo** | Envío de paquetes (ej. Nmap scan) |
+| **OSINT Framework** | Obtener info de fuentes abiertas |
+| **Spidering** | Mapear una aplicación para conocer sus puntos de acceso |

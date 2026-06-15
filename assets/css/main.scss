@@ -7,3 +7,150 @@ search: false
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+/* ============================================================
+   Custom overrides — terminal / hacker aesthetic
+   ============================================================ */
+
+/* Monospace headings */
+h1, h2, h3, h4, h5, h6,
+.page__title,
+.archive__item-title {
+  font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+  letter-spacing: -0.01em;
+}
+
+/* Masthead — thin green bottom border */
+.masthead {
+  background-color: #010409;
+  border-bottom: 1px solid #3fb950;
+}
+
+.masthead__inner-wrap {
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+}
+
+/* Site title green */
+.site-title,
+.masthead__menu-item a {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Code blocks — terminal look */
+div.highlighter-rouge,
+figure.highlight {
+  border: 1px solid #30363d;
+  border-left: 3px solid #3fb950;
+  border-radius: 4px;
+}
+
+/* Inline code */
+code.highlighter-rouge {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #79c0ff;
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+  font-size: 0.88em;
+}
+
+/* Blockquote — left accent bar */
+blockquote {
+  border-left: 3px solid #3fb950;
+  background-color: #161b22;
+  color: #8b949e;
+  padding: 0.8em 1.2em;
+  border-radius: 0 4px 4px 0;
+  font-style: normal;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th {
+    background-color: #161b22;
+    border-bottom: 2px solid #3fb950;
+    color: #3fb950;
+  }
+
+  td {
+    border-bottom: 1px solid #30363d;
+  }
+
+  tr:hover td {
+    background-color: #161b22;
+  }
+}
+
+/* Author sidebar — subtle top accent */
+.sidebar .author__content {
+  border-top: 2px solid #3fb950;
+  padding-top: 0.5em;
+}
+
+/* Tags and categories chips */
+.page__taxonomy-item {
+  border: 1px solid #30363d;
+  background-color: #161b22;
+  color: #8b949e;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72em;
+
+  &:hover {
+    background-color: #3fb950;
+    color: #0d1117;
+    border-color: #3fb950;
+  }
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72em;
+  color: #8b949e;
+}
+
+/* Footer */
+.page__footer {
+  background-color: #010409;
+  border-top: 1px solid #30363d;
+  color: #8b949e;
+}
+
+/* TOC */
+.toc .nav__title {
+  background-color: #3fb950;
+  color: #0d1117;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Scrollbar (webkit) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #010409;
+}
+::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3fb950;
+}
+
+/* Read time / meta — monospace */
+.page__meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72em;
+  color: #8b949e;
+}
+
+/* Smooth selection highlight */
+::selection {
+  background-color: #3fb950;
+  color: #0d1117;
+}

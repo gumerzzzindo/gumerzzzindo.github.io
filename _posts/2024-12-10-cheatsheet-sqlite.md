@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: SQLite Cheatsheet
 date: 2024-12-10
 categories: [herramientas, bases-datos]

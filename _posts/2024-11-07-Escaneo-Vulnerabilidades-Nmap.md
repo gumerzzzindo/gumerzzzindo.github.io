@@ -1,6 +1,11 @@
 ---
-layout: post
+layout: single
 title: "Escaneo y Explotación de Vulnerabilidades con Nmap"
+date: 2024-11-07
+categories: [tutoriales]
+tags: [nmap, nse, vulnerabilidades, recon, cve]
+excerpt: "Cómo usar el Nmap Scripting Engine (NSE) para detectar CVEs y vulnerabilidades conocidas"
+permalink: /tutoriales/nmap-vulnerabilidades/
 ---
 
 Para buscar vulnerabilidades (CVE) utilizando Nmap, puedes aprovechar su motor de scripts (NSE - Nmap Scripting Engine). Nmap incluye una variedad de scripts que pueden detectar vulnerabilidades conocidas. Aquí te explico cómo usarlos y cómo proceder una vez que encuentres una CVE.

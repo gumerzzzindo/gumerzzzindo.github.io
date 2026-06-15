@@ -1,3 +1,13 @@
+---
+layout: single
+title: "Writeup: Máquina Sea - HackTheBox"
+date: 2024-12-24
+categories: [writeups, htb]
+tags: [writeup, htb, wondercms, xss, rce, cve-2023-41425, ssh-tunneling, privesc]
+excerpt: "Explotación de WonderCMS vía CVE-2023-41425 (XSS→RCE) y escalada de privilegios mediante SSH tunneling en HTB Sea"
+permalink: /writeups/sea-htb/
+---
+
 # Informe Técnico de Explotación de la Máquina "Sea" de HTB
 
 **Fecha**: 24 de diciembre de 2024  

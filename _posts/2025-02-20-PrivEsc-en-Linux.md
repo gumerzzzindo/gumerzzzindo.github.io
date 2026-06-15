@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Escalada de Privilegios en Linux"
 date: 2025-02-20
 categories: [tutoriales, seguridad]

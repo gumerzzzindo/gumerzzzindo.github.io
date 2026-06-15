@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Máquina Domain - DockerLabs"
 date: 2025-01-15
 categories: [writeups, dockerlabs]
