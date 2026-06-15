@@ -5,7 +5,7 @@ date: 2024-11-18
 categories: [tutoriales]
 tags: [ia-generativa, ciberseguridad, quantum, charla]
 excerpt: "Resumen de la charla de Chema Alonso sobre IA, computación cuántica y ciberseguridad"
-author_profile: true
+permalink: /blog/charla-deusto-chema/
 ---
 
 # Resumen de la charla sobre IA Generativa, Tecnología Cuántica y Ciberseguridad

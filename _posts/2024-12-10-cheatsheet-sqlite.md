@@ -1,10 +1,9 @@
 ---
 layout: single
-title: SQLite Cheatsheet
+title: "SQLite Cheatsheet"
 date: 2024-12-10
 categories: [herramientas, bases-datos]
 tags: [sqlite, sql, cheatsheet, ingenieria-inversa, forensica]
-author: gumerzzzindo
 excerpt: "Guía rápida de comandos SQLite para análisis forense y ingeniería inversa"
 permalink: /tutoriales/sqlite-cheatsheet/
 ---
