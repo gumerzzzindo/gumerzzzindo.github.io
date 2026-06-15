@@ -4,7 +4,7 @@ title: "Escaneo y Explotación de Vulnerabilidades con Nmap"
 date: 2024-11-07
 categories: [tutoriales]
 tags: [nmap, nse, vulnerabilidades, recon, cve]
-excerpt: "Cómo usar el Nmap Scripting Engine (NSE) para detectar CVEs y vulnerabilidades conocidas"
+excerpt: "Uso del Nmap Scripting Engine (NSE) para detección de CVEs, versiones vulnerables y misconfiguraciones. Scripts vuln, safe y sus combinaciones más útiles."
 permalink: /tutoriales/nmap-vulnerabilidades/
 ---
 

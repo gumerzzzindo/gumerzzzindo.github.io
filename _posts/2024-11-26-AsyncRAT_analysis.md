@@ -4,7 +4,7 @@ title: "Análisis de AsyncRAT"
 date: 2024-11-26
 categories: [malware, analisis]
 tags: [asyncrat, rat, malware-analysis, reverse-engineering, c2]
-excerpt: "Análisis profundo del malware AsyncRAT: comportamiento, técnicas y IoCs"
+excerpt: "Análisis estático y dinámico de AsyncRAT: persistencia en registro, cifrado de C2, técnicas de evasión, strings extraídos y IOCs completos."
 permalink: /analisis/asyncrat/
 ---
 # Resumen del análisis del malware: AsyncRAT

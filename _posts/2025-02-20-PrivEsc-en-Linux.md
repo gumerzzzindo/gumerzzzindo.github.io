@@ -4,7 +4,7 @@ title: "Escalada de Privilegios en Linux"
 date: 2025-02-20
 categories: [tutoriales]
 tags: [privesc, linux, escalada-privilegios, pentesting, post-explotacion]
-excerpt: "Técnicas comunes de escalada de privilegios en sistemas Linux"
+excerpt: "Referencia práctica de técnicas de escalada de privilegios en Linux: SUID, sudo misconfig, cron jobs, capabilities, PATH hijacking y más. Guía de post-explotación."
 permalink: /tutoriales/privesc-linux/
 ---
 # PrivEsc en Linux

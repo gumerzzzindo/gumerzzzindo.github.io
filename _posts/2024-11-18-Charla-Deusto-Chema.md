@@ -1,130 +1,61 @@
 ---
 layout: single
-title: "Resumen de la charla: IA Generativa, Cuántica y Ciberseguridad"
+title: "Charla de Chema Alonso en Deusto: IA, Cuántica y Ciberseguridad"
 date: 2024-11-18
-categories: [tutoriales]
-tags: [ia-generativa, ciberseguridad, quantum, charla]
-excerpt: "Resumen de la charla de Chema Alonso sobre IA, computación cuántica y ciberseguridad"
-permalink: /tutoriales/charla-deusto-chema/
+categories: [blog]
+tags: [ia-generativa, ciberseguridad, quantum, chema-alonso, charla, gan, deepfake]
+excerpt: "Apuntes de la charla de Chema Alonso en la Universidad de Deusto sobre el impacto de la IA generativa, la computación cuántica y los retos de seguridad que vienen."
+permalink: /blog/charla-deusto-chema-alonso/
 ---
 
-# Resumen de la charla sobre IA Generativa, Tecnología Cuántica y Ciberseguridad
-
-**Fecha:** 2024-11-18  
-**Impartida por: Chema Alonso**
-
-A continuación, se explican brevemente los puntos destacados de la charla, organizados según los temas principales y relacionados con el título.
+El 18 de noviembre de 2024 asistí a una charla de Chema Alonso en la Universidad de Deusto (Bilbao). El tema: cómo la IA generativa y la computación cuántica están redefiniendo la ciberseguridad. Estos son mis apuntes.
 
 ---
 
-## 1. **Inteligencia Artificial Generativa**  
+## IA Generativa
 
-### Interpolación Matemática  
+La parte más densa de la charla. Chema arrancó con los fundamentos matemáticos detrás de los modelos generativos: **interpolación en espacios latentes**, que es básicamente cómo los modelos "inventan" contenido nuevo a partir de puntos conocidos en un espacio multidimensional.
 
-- Método usado en redes generativas para suavizar transiciones entre datos.  
-- Permite crear contenido fluido (como imágenes o sonidos) basándose en puntos de datos conocidos.
+Repasó las arquitecturas principales:
 
-### CNN (Redes Neuronales Convolucionales)  
+- **CNN (Redes Neuronales Convolucionales)**: procesamiento de imágenes, upscaling, mejora de calidad
+- **RNN (Redes Neuronales Recurrentes)**: generación de secuencias — texto, música, código
+- **GANs (Redes Generativas Antagónicas)**: el generador crea contenido falso, el discriminador aprende a detectarlo. En el entrenamiento compiten hasta que el generador engaña al discriminador consistentemente
 
-- Se usan en IA generativa, principalmente para procesar imágenes.  
-- Ejemplo: mejorar la calidad de un rostro en una imagen pixelada.  
+En la parte práctica mencionó herramientas como **DeepCamLive** para generación de vídeo en tiempo real y técnicas de reconstrucción facial. El foco era claro: los deepfakes ya no son un problema futuro.
 
-### RNN (Redes Neuronales Recurrentes)  
-
-- Útiles en generación de texto o predicción de secuencias, como en música o lenguaje natural.  
-
-### Discriminador vs Generador  
-
-- Arquitectura GAN (Redes Generativas Antagónicas).  
-- **Generador**: Crea contenido sintético.  
-- **Discriminador**: Evalúa si el contenido es real o generado.  
-
-### DeepCamLive y HeadRenacimiento  
-
-- **DeepCamLive**: Herramienta para generación en tiempo real de contenido audiovisual con IA.  
-- **HeadRenacimiento**: Técnica de reconstrucción facial basada en aprendizaje profundo.  
+Lo que me quedé: la brecha entre "detectar deepfakes" y "generarlos" se está cerrando muy rápido. Los discriminadores de hoy son los modelos de mañana.
 
 ---
 
-## 2. **Tecnología Cuántica**  
+## Computación Cuántica y Criptografía
 
-### QuantumReadiness (Preparación para la Cuántica)  
+Aquí el tono cambió. Menos demos, más amenaza real. El concepto central fue **QuantumReadiness**: preparar los sistemas actuales antes de que los ordenadores cuánticos rompan RSA y curvas elípticas.
 
-- Concepto de preparar sistemas actuales frente a las amenazas y oportunidades de la computación cuántica.  
+Los puntos clave:
 
-### QKY y POT  
+- **Harvest now, decrypt later**: actores de amenaza ya están capturando tráfico cifrado hoy para descifrarlo cuando tengan capacidad cuántica suficiente. No es hipotético, está pasando.
+- **Algoritmos post-cuánticos**: el NIST ya ha estandarizado los primeros (CRYSTALS-Kyber, CRYSTALS-Dilithium). Las organizaciones críticas deberían estar migrando.
+- **Generadores de números aleatorios cuánticos (QRNG)**: hardware que usa fenómenos cuánticos para generar entropía real, sin predictibilidad matemática. Relevante para criptografía de alta seguridad.
 
-- **QKY**: Algoritmo de llave cuántica para encriptación segura.  
-- **POT**: Protocolos que verifican la autenticidad de mensajes en redes cuánticas.  
-
-### QuantumRNG (Generador de Números Aleatorios Cuánticos)  
-
-- Hardware API para generar números aleatorios usando fenómenos cuánticos.  
-- Clave para fortalecer criptografía.  
-
-### VPN de Doble Capa  
-
-- Propuesta de seguridad que combina VPN tradicional y encriptación cuántica.  
-
-### Qstore y Quantum-Drop  
-
-- **Qstore**: Soluciones de almacenamiento cuántico seguro.  
-- **Quantum-Drop**: Sistema de transferencia de datos protegido contra espionaje cuántico.  
+El mensaje era directo: la criptografía simétrica fuerte (AES-256) sobrevive al cuántico relativamente bien. La asimétrica (RSA, ECDH) no.
 
 ---
 
-## 3. **Ciberseguridad**  
+## Ciberseguridad en el Contexto Actual
 
-### BigData2004 y CloudComputing2010  
+La última parte fue más conceptual. Algunos puntos que me parecieron interesantes:
 
-- Evolución de tecnologías que incrementaron los riesgos de ataques masivos.  
-- Base para el desarrollo de sistemas más avanzados de seguridad en la nube.  
+**Autenticación:**
+- **OTP (One-Time Passwords)**: útiles, pero vulnerables a phishing en tiempo real (evilginx, modlishka). La 2FA no es bala de plata.
+- **OAuth y gestión de identidad**: el vector de ataque se ha desplazado de las contraseñas a los tokens. Robar el refresh token es más rentable que crackear la password.
 
-### OTP y OAUTH  
+**Detección:**
+- Defendió los sistemas **IDS/IPS con correlación activa** frente a firewalls estáticos. La sonda que monitoriza comportamiento anómalo es más útil que la regla que bloquea puertos conocidos.
 
-- **OTP (One-Time Passwords)**: Códigos de uso único que aumentan la seguridad en autenticaciones.  
-- **OAUTH**: Estándar de autorización que permite a aplicaciones acceder a recursos sin comprometer credenciales.  
-
-### Do Strong Web Passwords Accomplish Anything?  
-
-- Debate sobre si las contraseñas fuertes realmente previenen ataques avanzados, considerando factores como phishing y brechas humanas.  
-
-### RainbowTable  
-
-- Ataque de fuerza bruta optimizado mediante tablas precalculadas de hash.  
-- Subraya la importancia de usar salt (valores aleatorios) para proteger contraseñas.  
-
-### MicrosoftVASA-1  
-
-- Herramienta de análisis de vulnerabilidades enfocada en redes empresariales.  
-
-### Análisis de Criptografía en Empresas  
-
-- Evaluación de sistemas actuales para garantizar que sean resistentes a ataques cuánticos.  
-
-### IDP-Firewall+Sonda  
-
-- Sistema avanzado de detección y prevención de intrusiones, que incluye monitoreo activo con sondas.  
-
-### TuLach  
-
-- Herramienta o concepto relacionado con estrategias de ataque/defensa en ciberseguridad (posiblemente en pruebas).  
+**Reflexión final de la charla:**
+> "La superficie de ataque crece más rápido que nuestra capacidad de defenderla. La IA ofensiva ya está en manos de actores malos. La pregunta no es si usarán IA para atacar, sino cuándo dejaremos de pretender que no."
 
 ---
 
-## 4. **Ejemplos de Innovación en Tecnología**  
-
-### DeepBlue IBM y AlphaChess/AlphaDeep  
-
-- **DeepBlue**: Primera máquina en derrotar a un campeón mundial de ajedrez (Kasparov).  
-- **AlphaChess/AlphaDeep**: IA avanzadas que demostraron la capacidad de aprendizaje no supervisado para dominar juegos complejos.  
-
-### 3Dscanstore  
-
-- Plataforma para digitalización en 3D. Usada para capturar modelos de alta calidad, también aplicada en IA generativa.  
-
----
-
-## Reflexión Final  
-
-La charla destacó cómo la IA generativa, la computación cuántica y los enfoques avanzados de ciberseguridad se entrelazan para abordar desafíos modernos.
+Buena charla. Densa en algunos momentos, pero el hilo conductor entre IA generativa → deepfakes → confianza digital → cuántica → criptografía futura tiene mucho sentido visto así. Lo del harvest now, decrypt later me pareció lo más relevante para pensar en el corto plazo.
