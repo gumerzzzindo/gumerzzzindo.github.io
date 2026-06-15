@@ -2,7 +2,7 @@
 layout: single
 title: "Apuntes MS17-010 EternalBlue"
 date: 2024-10-23
-categories: [tutoriales, vulnerabilidades]
+categories: [tutoriales]
 tags: [eternalblue, ms17-010, exploit, windows, seguridad]
 excerpt: "Análisis detallado de la vulnerabilidad EternalBlue (MS17-010)"
 permalink: /tutoriales/eternalblue-ms17-010/

@@ -2,7 +2,7 @@
 layout: single
 title: "Tutorial: Gestor de Contraseñas en Terminal con `pass`"
 date: 2024-12-12
-categories: [seguridad, terminal, herramientas]
+categories: [tutoriales, tools]
 tags: [pass, gpg, contraseñas, linux]
 excerpt: "Aprende a instalar y usar `pass`, un gestor de contraseñas minimalista y seguro para la terminal."
 permalink: /tutoriales/gestor-contrasenas-pass/

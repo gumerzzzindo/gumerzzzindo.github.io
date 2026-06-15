@@ -2,7 +2,7 @@
 layout: single
 title: "Cómo Configurar LDAP"
 date: 2024-11-12
-categories: [tutoriales, infraestructura]
+categories: [tutoriales]
 tags: [ldap, directorio-activo, configuracion, red]
 excerpt: "Guía paso a paso para configurar LDAP en tu entorno"
 permalink: /tutoriales/configurar-ldap/
