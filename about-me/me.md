@@ -1,15 +1,16 @@
 ---
 layout: single
-title: "About"
+title: "Sobre mí — Aitor S. | Malware Analyst & Offensive Security"
 permalink: /about-me/
 author_profile: true
+description: "Aitor S., analista de malware e investigador de seguridad ofensiva de Bilbao. Especializado en ingeniería inversa, análisis de RATs y ransomware, CVEs y CTFs (HackTheBox, DockerLabs)."
 ---
 
-Soy Aitor, de Bilbao. Me dedico a la ciberseguridad con foco en análisis de malware, ingeniería inversa y seguridad ofensiva.
+Soy Aitor, investigador de seguridad de Bilbao. Me especializo en **análisis de malware**, **ingeniería inversa** y **seguridad ofensiva**.
 
 Empecé con Tails 2.0 y Tor antes de entender bien lo que hacía. Después vino Kali, después Linux como sistema principal desde Ubuntu 19.04, y en 2019 empecé formalmente con el ciclo de Sistemas Microinformáticos y Redes. Desde entonces no he parado.
 
-Este blog es donde documento lo que analizo y aprendo: muestras de malware, writeups de CTFs, técnicas de pentesting y herramientas que uso en el día a día.
+Este blog documenta lo que analizo y aprendo: **muestras de malware reales**, **writeups de CTF** (HackTheBox, DockerLabs), **técnicas de pentesting ofensivo** y herramientas de análisis forense. Todo con código, capturas y metodología reproducible.
 
 ---
 
@@ -34,6 +35,10 @@ Este blog es donde documento lo que analizo y aprendo: muestras de malware, writ
 | Entorno | REMnux, FlareVM, QEMU/KVM |
 
 ---
+
+## Publicaciones recientes
+
+Los posts más técnicos están en las secciones de [Malware](/categories/malware/) y [Tutoriales](/tutoriales/). Los writeups de máquinas en [Writeups](/writeups/).
 
 ## Contacto
 
