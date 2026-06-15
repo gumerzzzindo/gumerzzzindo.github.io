@@ -5,7 +5,7 @@ permalink: /writeups/
 author_profile: true
 ---
 
-{% assign posts = site.posts | where: "categories", "writeups" %}
+{% assign posts = site.posts | where_exp: "post", "post.categories contains 'writeups'" %}
 
 <div class="archive">
   {% for post in posts %}
