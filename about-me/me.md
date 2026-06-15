@@ -29,7 +29,7 @@ Este blog es donde documento lo que analizo y aprendo: muestras de malware, writ
 | RE estático | Ghidra, x64dbg, DIE, pestudio, pefile |
 | Strings / ofuscación | strings, FLOSS |
 | Análisis de red | Wireshark, Nmap, tcpdump |
-| Explotación | Metasploit, CrackMapExec, impacket |
+| Explotación | Metasploit, NetExec, impacket |
 | Malware Office | oletools (oleid, olevba, mraptor) |
 | Entorno | REMnux, FlareVM, QEMU/KVM |
 
