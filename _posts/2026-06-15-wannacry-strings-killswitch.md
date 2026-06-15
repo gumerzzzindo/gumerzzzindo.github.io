@@ -18,7 +18,7 @@ Este post cubre el análisis estático básico: cómo extraer strings de un PE, 
 
 El dropper principal de WannaCry (el launcher que contiene el ransomware embebido):
 
-```
+```text
 SHA256: 24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c
 MD5:    db349b97c37d22f5ea1d1841e3c89eb4
 Nombre: mssecsvc.exe / tasksche.exe
@@ -58,7 +58,7 @@ for s in pe.sections:
 "
 ```
 
-```
+```text
 .text        entropy=6.21
 .rdata       entropy=4.87
 .data        entropy=3.94
@@ -80,7 +80,7 @@ strings -n 8 -e l wannacry.exe   # wide strings (UTF-16LE, habitual en Windows)
 
 Del output de strings interesantes (filtrado del ruido):
 
-```
+```text
 # Wide strings (-e l):
 www.iuqerfsodp9ifjaposdfjhposdfjhpOIJBOIJFDSOIJWEFJHSFD.com
 mssecsvc2.0
@@ -194,7 +194,7 @@ Dentro encontrarás `tasksche.exe` (el cifrador real), los ejecutables auxiliare
 
 ## Resumen del flujo de análisis
 
-```
+```text
 wannacry.exe
     │
     ├─ file / DIE          → PE32, sin packer, MSVC 2010

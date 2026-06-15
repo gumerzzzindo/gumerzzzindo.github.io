@@ -48,17 +48,19 @@ Para explotar esta vulnerabilidad, utilicé un exploit en Python que alojaba un 
 
 Una vez ejecutado, obtuve acceso al sistema con los permisos de www-data.
 
-Paso 5: Búsqueda de Credenciales
+## Paso 5: Búsqueda de Credenciales
+
 Una vez dentro del sistema, procedí a explorar los directorios del aplicativo hasta encontrar una base de datos del administrador. Dentro de esta base de datos, localicé la contraseña hasheada del administrador.
 
 Para descifrar la contraseña, utilicé herramientas como Hashcat o John the Ripper para realizar un brute force.
 
-bash'''
+```bash
 hashcat -m 0 -a 0 hash.txt /path/to/wordlist
-'''
-La contraseña recuperada fue mychemicalromance.
+```
 
-Paso 6: Conexión SSH
+La contraseña recuperada fue `mychemicalromance`.
+
+## Paso 6: Conexión SSH
 Con la contraseña descifrada, me conecté al sistema vía SSH como el usuario amay.
 
 ```bash

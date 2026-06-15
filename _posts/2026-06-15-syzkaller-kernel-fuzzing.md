@@ -50,7 +50,7 @@ Un fuzzer genérico como AFL no entiende nada de esto. Necesitas algo que *hable
 
 ### Arquitectura
 
-```
+```text
 ┌─────────────────────────────┐
 │         syz-manager         │  ← orquesta todo, recoge crashes
 │  (corre en la máquina host) │
@@ -78,7 +78,7 @@ El problema de describir syscalls tiene su propia solución en syzkaller: **syzl
 
 Ejemplo de cómo syzlang describe `socket()`:
 
-```
+```text
 socket(domain flags[socket_domain], type flags[socket_type], proto int32) fd[sock]
 
 socket_domain = AF_UNIX, AF_INET, AF_INET6, AF_NETLINK, AF_PACKET, ...
@@ -87,7 +87,7 @@ socket_type   = SOCK_STREAM, SOCK_DGRAM, SOCK_RAW, SOCK_SEQPACKET, ...
 
 Y una llamada dependiente:
 
-```
+```text
 bind(fd fd[sock], addr ptr[in, sockaddr], addrlen len[addr])
 ```
 
