@@ -5,7 +5,7 @@ date: 2024-10-17
 categories: [blog]
 tags: [presentacion]
 excerpt: "Primer post — bienvenido al blog"
-permalink: /inicio/hola-mundo/
+permalink: /blog/hola-mundo/
 ---
 
 Bienvenido. Este es mi blog sobre ciberseguridad, malware y hacking. Iré subiendo análisis, writeups de CTFs y apuntes técnicos.

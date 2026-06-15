@@ -2,7 +2,7 @@
 layout: single
 title: "Escalada de Privilegios en Linux"
 date: 2025-02-20
-categories: [tutoriales, seguridad]
+categories: [tutoriales]
 tags: [privesc, linux, escalada-privilegios, pentesting, post-explotacion]
 excerpt: "Técnicas comunes de escalada de privilegios en sistemas Linux"
 permalink: /tutoriales/privesc-linux/

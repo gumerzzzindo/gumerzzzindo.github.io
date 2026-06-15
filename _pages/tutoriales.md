@@ -5,10 +5,10 @@ permalink: /tutoriales/
 author_profile: true
 ---
 
-{% include group-by-array collection=site.posts array_name="categories" %}
+{% assign posts = site.posts | where_exp: "post", "post.categories contains 'tutoriales'" %}
 
-{% for category in group_names %}
-  {% assign posts = group_items[forloop.index0] %}
-  <h2 id="{{ category | slugify }}" class="archive__subtitle">{{ category }}</h2>
-  {% include posts-category.html taxonomy=category type="grid" %}
-{% endfor %}
+<div class="archive">
+  {% for post in posts %}
+    {% include archive-single.html %}
+  {% endfor %}
+</div>
