@@ -4,7 +4,7 @@ title: "Cómo Configurar LDAP"
 date: 2024-11-12
 categories: [tutoriales]
 tags: [ldap, directorio-activo, configuracion, red]
-excerpt: "Guía paso a paso para configurar LDAP en tu entorno"
+excerpt: "Instalación y configuración de OpenLDAP en Debian/Ubuntu: phpldapadmin, certificados TLS autofirmados y verificación con ldapsearch."
 permalink: /tutoriales/configurar-ldap/
 ---
 LDAP es un protocolo de red que permite gestionar servicios de directorio de una manera centralizada. Los directorios son bases de datos optimizadas para la lectura que almacenan información de forma jerárquica y se utilizan para gestionar y organizar información sobre usuarios, grupos, dispositivos y recursos dentro de una red.

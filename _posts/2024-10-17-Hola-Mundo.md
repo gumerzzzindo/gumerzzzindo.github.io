@@ -4,7 +4,7 @@ title: "Hola Mundo"
 date: 2024-10-17
 categories: [blog]
 tags: [presentacion]
-excerpt: "Primer post — bienvenido al blog"
+excerpt: "Presentación del blog: análisis de malware, writeups de CTF y técnicas de pentesting. Primeros apuntes sobre enumeración SMB y reconocimiento."
 permalink: /blog/hola-mundo/
 ---
 

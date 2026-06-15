@@ -1,5 +1,19 @@
 <!-- start custom head snippets -->
 
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<meta name="theme-color" content="#0a0c10">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="{{ site.author.name | default: site.name }}">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+{% if page.tags.size > 0 %}
+<meta name="keywords" content="{{ page.tags | join: ', ' }}">
+{% elsif site.tags.size > 0 %}
+<meta name="keywords" content="malware analysis, reverse engineering, CTF, pentesting, ingeniería inversa, ciberseguridad">
+{% endif %}
+
+<!-- Twitter card explícita para large image en posts con imagen OG -->
+{% if page.header.og_image or page.og_image or site.og_image %}
+<meta name="twitter:card" content="summary_large_image">
+{% endif %}
 
 <!-- end custom head snippets -->
