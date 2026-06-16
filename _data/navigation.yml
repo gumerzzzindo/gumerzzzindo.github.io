@@ -4,7 +4,7 @@ main:
   - title: "Writeups"
     url: /writeups/
   - title: "Malware"
-    url: /categories/malware/
+    url: /malware/
   - title: "Tutoriales"
     url: /tutoriales/
   - title: "Archivo"

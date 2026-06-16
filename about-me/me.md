@@ -38,7 +38,7 @@ Este blog documenta lo que analizo y aprendo: **muestras de malware reales**, **
 
 ## Publicaciones recientes
 
-Los posts más técnicos están en las secciones de [Malware](/categories/malware/) y [Tutoriales](/tutoriales/). Los writeups de máquinas en [Writeups](/writeups/).
+Los posts más técnicos están en las secciones de [Malware](/malware/) y [Tutoriales](/tutoriales/). Los writeups de máquinas en [Writeups](/writeups/).
 
 ## Contacto
 
