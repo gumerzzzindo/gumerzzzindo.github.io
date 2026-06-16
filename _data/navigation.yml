@@ -1,15 +1,7 @@
 main:
   - title: "Inicio"
     url: /
-  - title: "Writeups"
-    url: /writeups/
-  - title: "Malware"
-    url: /malware/
-  - title: "Tutoriales"
-    url: /tutoriales/
-  - title: "Archivo"
-    url: /archivo/
-  - title: "Buscar"
-    url: /buscar/
+  - title: "Contacto"
+    url: /contacto/
   - title: "About"
     url: /about-me/

@@ -29,6 +29,16 @@ h1, h2, h3, h4, h5, h6,
 .masthead__inner-wrap {
   padding-top: 0.6em;
   padding-bottom: 0.6em;
+
+  /* El tema centra la barra al mismo max-width que el contenido,
+     dejando el título muy metido hacia el centro en pantallas anchas.
+     Aquí se libera solo el masthead para que el título quede más a
+     la izquierda y el menú/lupa más a la derecha; el resto del
+     layout (contenido, sidebar) no se toca. */
+  @include breakpoint($x-large) {
+    max-width: 100%;
+    padding-inline: 2em;
+  }
 }
 
 /* Site title green */
