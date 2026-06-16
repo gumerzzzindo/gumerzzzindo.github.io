@@ -41,6 +41,18 @@ h1, h2, h3, h4, h5, h6,
   }
 }
 
+/* #main agrupa el sidebar de autor (izquierda) y el contenido (derecha).
+   El tema lo limita a $max-width (1280px) centrado, dejando huecos
+   muertos a ambos lados en pantallas anchas. Se libera igual que el
+   masthead: el bloque entero (sidebar + contenido) se acerca al borde
+   izquierdo y el contenido gana ancho real para leer/código. */
+#main {
+  @include breakpoint($x-large) {
+    max-width: 100%;
+    padding-inline: 2em;
+  }
+}
+
 /* Site title green */
 .site-title,
 .masthead__menu-item a {
