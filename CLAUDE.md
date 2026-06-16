@@ -26,6 +26,7 @@ permalink: /categoria/slug/
 - `tutoriales` — guías técnicas
 - `tools` — herramientas
 - `recon` — reconocimiento / OSINT
+- `reversing` — ingeniería inversa pura (assembly, crackmes, anti-debugging)
 - `blog` — posts generales
 
 ## Estilo
