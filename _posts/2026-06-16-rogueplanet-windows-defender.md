@@ -6,10 +6,6 @@ categories: [malware, analisis]
 tags: [windows-defender, lpe, race-condition, toctou, privesc, windows, ntfs-junction, vhd, zero-day]
 excerpt: "RoguePlanet es un PoC publicado el 10 de junio de 2026 que explota una race condition TOCTOU en el motor de escaneo en tiempo real de Windows Defender para obtener una shell SYSTEM en Windows 10 y Windows 11 completamente parcheados."
 permalink: /analisis/rogueplanet-windows-defender-race-condition/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/20231028_21_49_36-SmartScreen.png/1920px-20231028_21_49_36-SmartScreen.png"
-  caption: "Windows SmartScreen — Wikimedia Commons"
-
 ---
 
 El 10 de junio de 2026, el mismo día del Patch Tuesday más grande en la historia de Microsoft (~200 vulnerabilidades), el investigador conocido como **Nightmare Eclipse** (también rastreado como Chaotic Eclipse o Dead Eclipse) publicó **RoguePlanet**: un PoC de escalada de privilegios local (LPE) que explota una race condition en Windows Defender y devuelve una shell `NT AUTHORITY\SYSTEM`.

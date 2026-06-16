@@ -6,10 +6,6 @@ categories: [tutoriales, recon]
 tags: [google-dorks, osint, busqueda-avanzada, recon, enumeracion]
 excerpt: "Guía completa de Google Dorks para reconocimiento y OSINT"
 permalink: /tutoriales/google-dorks/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/A_magnifying_glass.jpg/1920px-A_magnifying_glass.jpg"
-  caption: "Lupa — Wikimedia Commons"
-
 ---
 # 🕵️‍♀️ Dorks: Para Script Kiddies
 

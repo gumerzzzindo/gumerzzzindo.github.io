@@ -6,10 +6,6 @@ categories: [tutoriales, tools]
 tags: [sqlite, sql, cheatsheet, ingenieria-inversa, forensica]
 excerpt: "Guía rápida de comandos SQLite para análisis forense y ingeniería inversa"
 permalink: /tutoriales/sqlite-cheatsheet/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/SQLiteHelp310.png/1920px-SQLiteHelp310.png"
-  caption: "SQLite Help — Wikimedia Commons"
-
 ---
 # SQLite Cheatsheet: Comandos Específicos de SQLite
 

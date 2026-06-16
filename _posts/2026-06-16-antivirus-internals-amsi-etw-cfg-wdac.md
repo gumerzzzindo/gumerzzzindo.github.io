@@ -6,10 +6,6 @@ categories: [tutoriales, malware]
 tags: [antivirus, edr, amsi, etw, cfg, wdac, heuristica, sandbox, windows-internals, deteccion]
 excerpt: "Cómo funciona realmente un antivirus moderno por dentro: motores de firma y heurística, sandboxing, y las tres piernas de la telemetría de Windows que lo alimentan — AMSI, ETW, CFG y WDAC."
 permalink: /tutoriales/antivirus-internals-amsi-etw-cfg-wdac/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Bitdefender_Awards.jpg/1920px-Bitdefender_Awards.jpg"
-  caption: "Premios de un antivirus — Wikimedia Commons"
-
 ---
 
 Cuando alguien dice "el antivirus me detectó" suele imaginar un único proceso comparando hashes contra una lista negra. La realidad de un AV/EDR moderno (Defender, CrowdStrike, SentinelOne, etc.) es una pila de varios motores independientes que se alimentan de fuentes de telemetría muy distintas del sistema operativo. Entender esa pila es la base para entender por qué algo se detecta — y por qué algo no.

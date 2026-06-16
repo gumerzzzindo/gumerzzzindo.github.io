@@ -6,10 +6,6 @@ categories: [blog]
 tags: [presentacion]
 excerpt: "Presentación del blog: análisis de malware, writeups de CTF y técnicas de pentesting. Primeros apuntes sobre enumeración SMB y reconocimiento."
 permalink: /blog/hola-mundo/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/2/29/Linux_command-line._Bash._GNOME_Terminal._screenshot.png"
-  caption: "Linux command-line, Bash, GNOME Terminal — Wikimedia Commons"
-
 ---
 
 Bienvenido. Este es mi blog sobre ciberseguridad, malware y hacking. Iré subiendo análisis, writeups de CTFs y apuntes técnicos.

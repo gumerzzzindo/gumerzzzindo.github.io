@@ -6,10 +6,6 @@ categories: [tutoriales, malware]
 tags: [fuzzing, kernel, syzkaller, linux, vulnerability-research, coverage-guided, syscall]
 excerpt: "Qué es un fuzzer, por qué el kernel es un objetivo especialmente difícil, y cómo syzkaller lo ataca con cobertura guiada y un DSL propio para syscalls"
 permalink: /tutoriales/syzkaller-kernel-fuzzing/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/7/78/Linux_5.7_kernel_panic.png"
-  caption: "Linux kernel panic — Wikimedia Commons"
-
 ---
 
 ## ¿Qué es un fuzzer?

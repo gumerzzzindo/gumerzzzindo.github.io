@@ -6,10 +6,6 @@ categories: [tutoriales]
 tags: [ldap, directorio-activo, configuracion, red]
 excerpt: "Instalación y configuración de OpenLDAP en Debian/Ubuntu: phpldapadmin, certificados TLS autofirmados y verificación con ldapsearch."
 permalink: /tutoriales/configurar-ldap/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/5/57/EFTA00002522_-_Cluttered_server_rack_filled_with_colorful_cables_and_networking_equipment.jpg"
-  caption: "Server rack con cableado de red — Wikimedia Commons"
-
 ---
 LDAP es un protocolo de red que permite gestionar servicios de directorio de una manera centralizada. Los directorios son bases de datos optimizadas para la lectura que almacenan información de forma jerárquica y se utilizan para gestionar y organizar información sobre usuarios, grupos, dispositivos y recursos dentro de una red.
 

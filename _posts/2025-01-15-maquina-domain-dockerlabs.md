@@ -6,10 +6,6 @@ categories: [writeups, dockerlabs]
 tags: [writeup, dockerlabs, smb, samba, webshell, privesc, ctf]
 excerpt: "Explotación de share SMB con escritura para subir webshell PHP, escalada www-data → james → root"
 permalink: /writeups/domain-dockerlabs/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/6/61/Dockworker_team_on_a_container_ship.jpg"
-  caption: "Dockworkers en un barco contenedor — Wikimedia Commons"
-
 ---
 
 ## Enumeración

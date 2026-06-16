@@ -6,10 +6,6 @@ categories: [malware, analisis]
 tags: [asyncrat, rat, malware-analysis, reverse-engineering, c2]
 excerpt: "Análisis estático y dinámico de AsyncRAT: persistencia en registro, cifrado de C2, técnicas de evasión, strings extraídos y IOCs completos."
 permalink: /analisis/asyncrat/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Cyberattack_chain.jpg/1920px-Cyberattack_chain.jpg"
-  caption: "Cyberattack chain — Wikimedia Commons"
-
 ---
 # Resumen del análisis del malware: AsyncRAT
 

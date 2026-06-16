@@ -6,10 +6,6 @@ categories: [tutoriales, malware]
 tags: [dirty-frag, cve-2026-43284, cve-2026-43500, kernel, privesc, lpe, ipsec, xfrm, rxrpc, page-cache]
 excerpt: "Análisis de Dirty Frag (CVE-2026-43284 + CVE-2026-43500): escalada de privilegios determinista en el kernel Linux encadenando dos vulnerabilidades de escritura en page cache en los subsistemas xfrm-ESP y RxRPC."
 permalink: /tutoriales/dirty-frag-lpe-kernel-linux/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/XFS_v4_Linux_Kernel_Option.jpg/1920px-XFS_v4_Linux_Kernel_Option.jpg"
-  caption: "Opciones del kernel Linux — Wikimedia Commons"
-
 ---
 
 El 7 de mayo de 2026 se publicó **Dirty Frag**, una nueva clase de vulnerabilidad en el kernel Linux que permite escalar privilegios a root de forma determinista, sin race conditions y con una tasa de éxito muy alta. Descubierta y reportada por **Hyunwoo Kim (@v4bel)**, representa la extensión natural de la familia iniciada por Dirty Pipe y Copy Fail.

@@ -6,10 +6,6 @@ categories: [malware, analisis]
 tags: [wannacry, ransomware, strings, kill-switch, static-analysis, floss, pe, reverse-engineering]
 excerpt: "Análisis estático de WannaCry: cómo extraer strings de un PE, qué encontramos y por qué una URL hardcodeada detuvo el mayor ransomware de la historia"
 permalink: /analisis/wannacry-strings-killswitch/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/DHS_Secretary_Alejandro_Mayorkas_gives_remarks_at_the_International_Counter_Ransomware_Initiative_Summit_in_Washington_DC_on_November_1%2C_2023_-_3.jpg/1920px-DHS_Secretary_Alejandro_Mayorkas_gives_remarks_at_the_International_Counter_Ransomware_Initiative_Summit_in_Washington_DC_on_November_1%2C_2023_-_3.jpg"
-  caption: "Cumbre internacional contra el ransomware — Wikimedia Commons"
-
 ---
 
 En mayo de 2017, WannaCry infectó más de 230.000 sistemas en 150 países en cuestión de horas. Lo paró un investigador de seguridad por 10,69 dólares — el coste de registrar un dominio que encontró en las strings del binario.

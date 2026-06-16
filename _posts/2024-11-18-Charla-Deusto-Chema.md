@@ -6,10 +6,6 @@ categories: [blog]
 tags: [ia-generativa, ciberseguridad, quantum, chema-alonso, charla, gan, deepfake]
 excerpt: "Apuntes de la charla de Chema Alonso en la Universidad de Deusto sobre el impacto de la IA generativa, la computación cuántica y los retos de seguridad que vienen."
 permalink: /blog/charla-deusto-chema-alonso/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/LaRSS_lecture_by_Joel_Levine_01.jpg/1920px-LaRSS_lecture_by_Joel_Levine_01.jpg"
-  caption: "Sala de conferencias — Wikimedia Commons"
-
 ---
 
 El 18 de noviembre de 2024 asistí a una charla de Chema Alonso en la Universidad de Deusto (Bilbao). El tema: cómo la IA generativa y la computación cuántica están redefiniendo la ciberseguridad. Estos son mis apuntes.

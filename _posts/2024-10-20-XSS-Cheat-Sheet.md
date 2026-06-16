@@ -6,10 +6,6 @@ categories: [tutoriales]
 tags: [xss, seguridad, web, vulnerabilidades]
 excerpt: "Guía completa de payloads XSS y técnicas de prevención"
 permalink: /tutoriales/xss-cheat-sheet/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Cross-Site_Scripting_%28XSS%29.png"
-  caption: "Diagrama de Cross-Site Scripting (XSS) — Wikimedia Commons"
-
 ---
 
 # Apuntes sobre XSS (Cross-Site Scripting)

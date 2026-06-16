@@ -6,10 +6,6 @@ categories: [tutoriales]
 tags: [eternalblue, ms17-010, exploit, windows, seguridad]
 excerpt: "Análisis detallado de la vulnerabilidad EternalBlue (MS17-010)"
 permalink: /tutoriales/eternalblue-ms17-010/
-header:
-  image: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Windows_XP_SP2_boot_screen.png"
-  caption: "Windows XP SP2 boot screen — Wikimedia Commons"
-
 ---
 # Escaneo y Persistencia con CrackMapExec y Mimikatz
 
