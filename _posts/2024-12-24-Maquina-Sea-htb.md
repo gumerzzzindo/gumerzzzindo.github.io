@@ -6,6 +6,10 @@ categories: [writeups, htb]
 tags: [writeup, htb, wondercms, xss, rce, cve-2023-41425, ssh-tunneling, privesc]
 excerpt: "Explotación de WonderCMS vía CVE-2023-41425 (XSS→RCE) y escalada de privilegios mediante SSH tunneling en HTB Sea"
 permalink: /writeups/sea-htb/
+header:
+  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Cruise_ship_Majesty_of_the_Seas_-_Bahamas_-_Caribbean_Sea_-_Atlantic_Ocean_-_13_May_2009_%28cropped%29.jpg/1920px-Cruise_ship_Majesty_of_the_Seas_-_Bahamas_-_Caribbean_Sea_-_Atlantic_Ocean_-_13_May_2009_%28cropped%29.jpg"
+  caption: "Crucero en el mar — Wikimedia Commons"
+
 ---
 
 # Informe Técnico de Explotación de la Máquina "Sea" de HTB

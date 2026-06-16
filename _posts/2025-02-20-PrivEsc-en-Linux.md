@@ -6,6 +6,10 @@ categories: [tutoriales]
 tags: [privesc, linux, escalada-privilegios, pentesting, post-explotacion]
 excerpt: "Referencia práctica de técnicas de escalada de privilegios en Linux: SUID, sudo misconfig, cron jobs, capabilities, PATH hijacking y más. Guía de post-explotación."
 permalink: /tutoriales/privesc-linux/
+header:
+  image: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tux%2C_the_Linux_penguin_I.jpg"
+  caption: "Tux, la mascota de Linux — Wikimedia Commons"
+
 ---
 # PrivEsc en Linux
 

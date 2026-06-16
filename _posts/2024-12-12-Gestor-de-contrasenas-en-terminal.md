@@ -6,6 +6,10 @@ categories: [tutoriales, tools]
 tags: [pass, gpg, contraseñas, linux]
 excerpt: "Aprende a instalar y usar `pass`, un gestor de contraseñas minimalista y seguro para la terminal."
 permalink: /tutoriales/gestor-contrasenas-pass/
+header:
+  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Padlock_locked_%284141478822%29.jpg/1920px-Padlock_locked_%284141478822%29.jpg"
+  caption: "Candado cerrado — Wikimedia Commons"
+
 ---
 # Tutorial: Gestor de Contraseñas en Terminal con `pass`
 

@@ -6,6 +6,10 @@ categories: [tutoriales, malware]
 tags: [windows-internals, syscalls, win32api, ntdll, ntoskrnl, seguridad-en-capas, edr, evasion]
 excerpt: "Win32 API, ntdll.dll y syscalls nativas: que hace cada capa, por que el codigo normal nunca toca el kernel directamente, y si Windows tiene seguridad por capas como un kernel tradicional."
 permalink: /tutoriales/syscalls-windows-vs-win32-api/
+header:
+  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/MDT_AKD-0201.02_circuit_board_back.jpg/1920px-MDT_AKD-0201.02_circuit_board_back.jpg"
+  caption: "Placa de circuito — Wikimedia Commons"
+
 ---
 Cuando se escribe `CreateFileW()` en C, o `Process.Start()` en .NET, en realidad no se está hablando con el kernel. Se está hablando con una API de usuario que, varias capas más abajo, termina pidiéndole permiso al kernel para hacer el trabajo real. Entender esas capas explica por qué el malware moderno casi siempre intenta saltárselas, y por qué eso es exactamente lo que vigila un EDR.
 

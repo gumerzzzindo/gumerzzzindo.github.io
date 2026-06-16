@@ -6,6 +6,10 @@ categories: [tutoriales]
 tags: [criptografia, ecc, curva-eliptica, entropia, rng, ecdsa, ecdh, post-cuantica]
 excerpt: "Cómo funciona la criptografía de curva elíptica (ECC), por qué la entropía del generador de números aleatorios es el eslabón más débil, y qué pasa cuando falla."
 permalink: /tutoriales/criptografia-curva-eliptica-entropia/
+header:
+  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Digital_cryptography_section_in_Cryptography_Museum_17.jpg/1920px-Digital_cryptography_section_in_Cryptography_Museum_17.jpg"
+  caption: "Museo de Criptografía — Wikimedia Commons"
+
 ---
 
 ECDSA, ECDH, Ed25519, Curve25519. Si has tocado SSH, TLS, Signal o un wallet de Bitcoin, has usado curva elíptica sin pensarlo. Y casi siempre el problema no está en la matemática, sino en la entropía que alimenta esa matemática. Vamos a desmontar ambas piezas.

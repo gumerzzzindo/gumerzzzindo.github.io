@@ -6,6 +6,10 @@ categories: [tutoriales, tools]
 tags: [tor, relay, vps, privacidad, anonimato, red-tor, legal]
 excerpt: "Qué tipos de relay existen, cómo montar uno en un VPS, qué ganas realmente (spoiler: nada económico) y qué dice la ley sobre operarlos."
 permalink: /tutoriales/tor-relay-vps/
+header:
+  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/32C3-tor-exit-node-stats.jpg/1920px-32C3-tor-exit-node-stats.jpg"
+  caption: "Estadísticas de nodos de salida Tor (32C3) — Wikimedia Commons"
+
 ---
 
 Cada vez que alguien dice "voy a montar un nodo de Tor" surgen las mismas tres preguntas: ¿qué gano yo con esto?, ¿por qué debería molestarme? y la que casi nadie hace en voz alta: ¿no estaré ayudando a que alguien venda drogas o distribuya material ilegal? Vamos a desmontar las tres con datos, no con suposiciones.
