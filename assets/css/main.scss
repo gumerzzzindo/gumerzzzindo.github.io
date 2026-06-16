@@ -53,6 +53,17 @@ h1, h2, h3, h4, h5, h6,
   }
 }
 
+/* Con #main ya sin tope, en monitores anchos (1920px+) el texto del
+   post llegaría a ~1250-1900px de columna, demasiado para leer prosa.
+   Se limita .page__inner-wrap (título + meta + contenido + footer)
+   a un ancho cómodo, todo alineado entre sí; el sidebar de autor y
+   el resto del bloque siguen aprovechando el espacio ganado. */
+.page__inner-wrap {
+  @include breakpoint($x-large) {
+    max-width: 900px;
+  }
+}
+
 /* Site title green */
 .site-title,
 .masthead__menu-item a {
