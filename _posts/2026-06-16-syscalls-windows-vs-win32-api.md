@@ -4,16 +4,15 @@ title: "Syscalls de Windows vs Win32 API: por qué nadie llama directamente al k
 date: 2026-06-16
 categories: [tutoriales, malware]
 tags: [windows-internals, syscalls, win32api, ntdll, ntoskrnl, seguridad-en-capas, edr, evasion]
-excerpt: "Win32 API, ntdll.dll y syscalls nativas: que hace cada capa, por que el codigo normal nunca toca el kernel directamente, y si Windows tiene seguridad por capas como un kernel tradicional."
+excerpt: "Win32 API, ntdll.dll y syscalls nativas: qué hace cada capa, por qué el código normal nunca toca el kernel directamente, y cómo el malware moderno explota eso para evadir EDRs."
 permalink: /tutoriales/syscalls-windows-vs-win32-api/
 ---
-Cuando se escribe `CreateFileW()` en C, o `Process.Start()` en .NET, en realidad no se está hablando con el kernel. Se está hablando con una API de usuario que, varias capas más abajo, termina pidiéndole permiso al kernel para hacer el trabajo real. Entender esas capas explica por qué el malware moderno casi siempre intenta saltárselas, y por qué eso es exactamente lo que vigila un EDR.
 
----
+Cuando se escribe `CreateFileW()` en C, o `Process.Start()` en .NET, en realidad no se está hablando con el kernel. Se está hablando con una API de usuario que, varias capas más abajo, termina pidiéndole permiso al kernel para hacer el trabajo real. Entender esas capas explica por qué el malware moderno casi siempre intenta saltárselas, y por qué eso es exactamente lo que vigila un EDR.
 
 ## Las tres capas, de arriba a abajo
 
-```
+```text
 [ Tu programa ]
        │  CreateFileW(), VirtualAlloc(), WriteProcessMemory()...
        ▼
@@ -22,9 +21,9 @@ Cuando se escribe `CreateFileW()` en C, o `Process.Start()` en .NET, en realidad
        ▼
 [ Native API ]              ntdll.dll
        │  NtCreateFile(), NtAllocateVirtualMemory()...
-       │  prepara el registro de la CPU y ejecuta la instrucción syscall/sysenter
+       │  carga el SSN en RAX, copia RCX en R10, ejecuta syscall
        ▼
-[ Syscall / transición a kernel ]
+[ Syscall — transición a kernel ]
        │  cambio de anillo: Ring 3 (usuario) → Ring 0 (kernel)
        ▼
 [ ntoskrnl.exe — el kernel ]
@@ -33,13 +32,13 @@ Cuando se escribe `CreateFileW()` en C, o `Process.Start()` en .NET, en realidad
 [ Hardware / drivers ]
 ```
 
-Tres nombres, tres trabajos distintos:
+Tres capas, tres responsabilidades:
 
-- **Win32 API**: la capa "amigable". DLLs como `kernel32.dll`, `user32.dll`, `advapi32.dll`. Documentada públicamente, estable entre versiones de Windows, con miles de funciones para todo: ficheros, red, hilos, registro, UI.
-- **Native API / NT API**: vive en `ntdll.dll`. Son las funciones `Nt*`/`Zw*` (`NtCreateFile`, `NtAllocateVirtualMemory`, `NtWriteVirtualMemory`...). Es la capa que realmente prepara la llamada al kernel. Mayormente no documentada oficialmente, y *puede* cambiar entre versiones de Windows.
-- **Syscall**: la instrucción de CPU (`syscall` en x64, `int 0x2e`/`sysenter` en sistemas antiguos) que provoca el cambio de privilegio de Ring 3 a Ring 0. Cada syscall tiene un número (el *System Service Number*, SSN) que identifica qué operación se quiere ejecutar en el kernel.
+- **Win32 API** (`kernel32.dll`, `user32.dll`, `advapi32.dll`): la interfaz documentada y estable entre versiones de Windows. Valida parámetros, gestiona compatibilidad y traduce las llamadas al formato interno de Windows (NT).
+- **Native API** (`ntdll.dll`): las funciones `Nt*` son los stubs que invocan al kernel. Preparan la llamada cargando el *System Service Number* (SSN) en `RAX` y copiando `RCX` en `R10`, porque la instrucción `syscall` sobreescribe `RCX` con la dirección de retorno. No están documentadas para uso en aplicaciones, aunque sus equivalentes kernel-mode (`Zw*`) sí lo están en el WDK.
+- **Syscall**: en Windows x64 moderno, la instrucción `syscall` ejecuta el cambio de privilegio de Ring 3 a Ring 0. En sistemas legacy de 32 bits se usaba `int 0x2e` (Windows NT hasta 2000) y posteriormente `sysenter` (XP/Vista 32-bit) — mecanismos secuenciales, no equivalentes, que desaparecieron con la transición a x64.
 
----
+El kernel identifica la operación solicitada por el SSN en `RAX`, un índice en la *System Service Descriptor Table* (SSDT) que apunta a la función del kernel correspondiente.
 
 ## Qué pasa exactamente cuando llamas a CreateFileW
 
@@ -47,7 +46,7 @@ Siguiendo el flujo con un ejemplo concreto:
 
 1. Tu código llama a `CreateFileW()` en `kernel32.dll`.
 2. `kernel32.dll` valida parámetros, convierte el path a formato NT (`\??\C:\ruta`), y llama a `NtCreateFile()` en `ntdll.dll`.
-3. El stub de `NtCreateFile` en `ntdll.dll` hace algo parecido a esto:
+3. El stub de `NtCreateFile` en `ntdll.dll` hace algo así:
 
 ```nasm
 ; NtCreateFile stub en ntdll.dll (x64, Windows 10/11)
@@ -57,62 +56,63 @@ syscall               ; transición a Ring 0
 ret
 ```
 
-4. La CPU entra en kernel mode. El *System Service Dispatcher* (`KiSystemCall64` en `ntoskrnl.exe`) recibe el SSN, busca la función correspondiente en la *System Service Descriptor Table* (SSDT), y la ejecuta.
+4. La CPU entra en kernel mode. El *System Service Dispatcher* (`KiSystemCall64` en `ntoskrnl.exe`) recibe el SSN, busca la función en la SSDT y la ejecuta.
 5. El kernel comprueba permisos, resuelve el objeto en el *Object Manager*, y hace el trabajo real.
 6. El resultado vuelve a Ring 3 como `NTSTATUS`.
 
-El SSN es simplemente un índice en una tabla. No hay nombre de función ni string de por medio — solo un número entero que el kernel mapea a una función interna.
-
----
+El SSN es simplemente un índice en una tabla — no hay nombre de función ni string de por medio.
 
 ## Por qué el código normal no usa syscalls directas
 
-Dos razones principales:
+**Portabilidad.** El SSN de `NtCreateFile` en Windows 7 es distinto al de Windows 10 y al de Windows 11. Si hardcodeas el número, tu programa tendrá comportamiento inesperado en otra versión. `ntdll.dll` abstrae eso: los stubs siempre tienen el SSN correcto para la versión en ejecución.
 
-**Portabilidad**: el SSN de `NtCreateFile` en Windows 7 es distinto al de Windows 10 y al de Windows 11. Si hardcodeas el número, tu programa petará o hará algo inesperado en otra versión. `ntdll.dll` abstrae eso: los stubs siempre tienen el SSN correcto para la versión en ejecución.
+**Estabilidad de API.** Microsoft garantiza que la Win32 API es estable. La Native API no está garantizada — pueden cambiar parámetros, comportamiento o SSNs en cualquier update. Programar contra `kernel32.dll` da compatibilidad hacia adelante; hacerlo contra SSNs hardcodeados, no.
 
-**Estabilidad de API**: Microsoft garantiza que la Win32 API es estable. La Native API (`Nt*`) no está garantizada. Microsoft puede cambiar los parámetros, el comportamiento, o los SSN en cualquier update. Programar contra `kernel32.dll` te da compatibilidad hacia adelante; programar contra `ntdll.dll` directamente, o peor, contra SSNs hardcodeados, no.
+## ¿Windows tiene seguridad por capas de verdad?
 
----
+Sí, aunque no donde la mayoría espera.
 
-## ¿Windows tiene seguridad por capas "de verdad"?
+El modelo de anillos de la CPU (Ring 0 / Ring 3) es la separación real y obligatoria. El kernel corre en Ring 0 con acceso total al hardware y la memoria. El código de usuario corre en Ring 3 y no puede acceder directamente a nada privilegiado — la CPU lo impide a nivel hardware. La única forma de cruzar esa frontera es a través de una syscall.
 
-Sí, aunque de forma diferente a lo que se esperaría de un sistema tipo Unix.
+Las capas superiores (Win32 API → ntdll → syscall) son capas de *abstracción y compatibilidad*, no de seguridad. La seguridad real la impone el kernel al recibir la syscall:
 
-El modelo de anillos de la CPU (Ring 0 / Ring 3) es la separación real y obligatoria. El kernel corre en Ring 0 y tiene acceso total al hardware y a la memoria. El código de usuario corre en Ring 3 y no puede acceder directamente a nada privilegiado: la CPU lo impide a nivel hardware. La única forma de cruzar esa frontera es a través de una syscall, que pasa por el kernel, que decide si la operación está permitida.
+- **Access Control**: ¿tiene el proceso el `HANDLE` con los permisos correctos?
+- **Token/privilegios**: ¿tiene el proceso el privilegio requerido (p. ej. `SeDebugPrivilege`)?
+- **Integrity Level**: ¿el nivel de integridad del proceso permite la operación?
+- **Object Security Descriptor**: ¿la DACL del objeto permite al SID del proceso esa acción?
 
-Las capas por encima (Win32 API → ntdll → syscall) son capas de *abstracción y compatibilidad*, no de seguridad en sí mismas. La seguridad real la impone el kernel cuando recibe la syscall:
+`kernel32.dll` hace validación básica de parámetros, pero la seguridad real vive en el kernel.
 
-- **Access Control**: ¿tiene el proceso el `HANDLE` necesario con los permisos correctos?
-- **Token/privilegios**: ¿tiene el token del proceso el privilegio requerido (p. ej. `SeDebugPrivilege`)?
-- **Integrity Level**: ¿el nivel de integridad del proceso permite la operación sobre el objeto?
-- **Object Security Descriptor**: ¿la DACL del objeto permite al SID del proceso realizar esa acción?
+## Cómo lo aprovecha el malware
 
-Todo eso lo comprueba el kernel, no la Win32 API. `kernel32.dll` puede hacer alguna validación básica de parámetros, pero no es donde vive la seguridad.
+Un EDR moderno coloca *hooks* en las funciones `Nt*` de `ntdll.dll`: modifica los primeros bytes del stub para redirigir la ejecución a su propio código antes de que llegue al kernel. Si el malware lo sabe, puede saltárselo:
 
----
+**Direct syscalls.** En lugar de llamar al stub hooked de ntdll, el malware implementa el suyo propio con el SSN correcto y ejecuta `syscall` directamente. El hook del EDR nunca se dispara. Herramientas como SysWhispers automatizan la generación de stubs por versión de Windows.
 
-## Por qué le importa esto a un EDR
+**Indirect syscalls.** Variante más evasiva: el malware salta directamente a la instrucción `syscall` *dentro* del stub legítimo de ntdll, eludiendo los bytes hooked al inicio. El `syscall` original se ejecuta, pero el call stack no apunta a ntdll — evitando también las detecciones basadas en stack de retorno.
 
-Un EDR tradicional basado en *user-mode hooks* coloca detours en las funciones de `ntdll.dll`. Cuando un proceso llama a `NtCreateFile`, en realidad está ejecutando primero código del EDR que analiza los parámetros, decide si es sospechoso, y luego salta a la función original.
+**Hell's Gate / Halo's Gate.** Técnicas para obtener el SSN en tiempo de ejecución sin hardcodearlo. Hell's Gate lee el SSN desde los bytes del stub en memoria. Halo's Gate resuelve el caso en que el stub ya está hooked buscando stubs vecinos sin parchear y calculando el SSN por diferencia de índice.
 
-El problema es que ese hook vive en user mode, en el espacio de memoria del propio proceso. Y si el malware lo sabe, puede saltárselo de varias formas:
+**Unhooking.** Restaurar el código original de `ntdll.dll` en memoria — cargando una copia limpia desde disco, desde `KnownDlls`, o copiándola de la sección de la DLL en otro proceso. El hook desaparece físicamente.
 
-- **Direct syscalls**: en vez de llamar al stub de `ntdll.dll`, calcular el SSN directamente (resolviendo el stub en memoria o usando técnicas como *Hell's Gate*, *Halo's Gate*, *Tartarus' Gate*) y ejecutar la instrucción `syscall` desde el propio código malicioso. El hook de `ntdll` nunca se ejecuta.
-- **Unhooking**: restaurar el código original de `ntdll.dll` en memoria (cargando una copia limpia desde disco, o desde `KnownDlls`, o desde la sección de la DLL en otro proceso).
-- **Indirect syscalls**: usar el `syscall` de un stub legítimo de `ntdll` pero controlando el SSN desde fuera, para que el EDR vea la instrucción venir de `ntdll` pero sin pasar por el hook.
+## Qué vigila un EDR
 
-Los EDRs modernos contrarrestan esto con kernel-mode drivers (protegidos por PatchGuard y ELAM) que no pueden ser unhooked desde user mode, y con ETW (Event Tracing for Windows) que captura eventos directamente en kernel sin pasar por los stubs de ntdll.
+Los EDRs modernos han añadido capas de detección independientes de los hooks en user-mode:
 
----
+- **ETW (Event Tracing for Windows)**: el kernel emite eventos nativos para operaciones sensibles. El proveedor `Microsoft-Windows-Threat-Intelligence` da telemetría desde Ring 0 independientemente de si el malware usó direct syscalls.
+- **Kernel callbacks**: `PsSetCreateProcessNotifyRoutine`, `ObRegisterCallbacks`, minifilter drivers — el EDR registra callbacks en el kernel que se ejecutan ante eventos del sistema sin depender de los stubs de ntdll.
+- **Análisis del call stack**: una syscall cuyo stack de retorno no pasa por ntdll es señal de direct syscall — algo que los EDRs modernos detectan activamente.
 
-## Resumen
-
-| Capa | Dónde vive | Para qué sirve | ¿Cambia entre versiones? |
+| Técnica del malware | Evita hook ntdll | Evita ETW kernel | Evita kernel callbacks |
 |---|---|---|---|
-| Win32 API | `kernel32.dll`, `user32.dll`... | Abstracción amigable y estable | No (garantizado por MS) |
-| Native API | `ntdll.dll` | Preparar y ejecutar la syscall | A veces |
-| SSN | Hardcoded en el stub de ntdll | Identificar la operación en el kernel | Sí, por versión y build |
-| Kernel | `ntoskrnl.exe` | Ejecutar la operación real, imponer seguridad | Interno |
+| Llamada normal (Win32) | No | No | No |
+| Direct syscall | Sí | No | No |
+| Indirect syscall | Sí | No | No |
+| Unhooking de ntdll | Sí | No | No |
+| Kernel exploit / driver malicioso | Sí | Parcial | Parcial |
 
-El flujo normal `CreateFileW → NtCreateFile → syscall → kernel` existe por razones de diseño y compatibilidad, no por seguridad. La seguridad real la impone el kernel al recibir la syscall. Y eso es exactamente el motivo por el que el malware sofisticado intenta llegar al kernel lo más directamente posible, evitando todas las capas intermedias donde los EDRs ponen sus ojos.
+## Conclusión
+
+Win32 API, ntdll y las syscalls no son tres nombres para lo mismo: son tres capas con responsabilidades distintas y superficies de ataque distintas. El código legítimo vive en Win32 API porque es estable y documentada. El malware que quiere evadir EDRs desciende hacia ntdll o directamente al kernel porque ahí los hooks son más difíciles de mantener.
+
+Conocer esta arquitectura es el punto de partida para entender tanto las técnicas de evasión modernas como por qué los EDRs han tenido que mover su telemetría al kernel — y por qué esa carrera de armamentos entre detección y evasión sigue escalando.
