@@ -32,9 +32,17 @@ Esos 5 bytes de JMP sustituyen `mov r10, rcx` + el inicio de `mov eax, SSN`. El 
 
 ## El problema con los SSNs hardcodeados
 
-Los SSNs no son constantes. Cambian entre versiones de Windows porque dependen del número de servicios en la SSDT, que Microsoft puede modificar en cualquier update. `NtCreateFile` en Windows 10 21H2 tiene un SSN distinto al de Windows 11 24H2.
+Los SSNs no son constantes. Dependen del número de servicios en la SSDT y cambian cada vez que Microsoft añade o reordena entradas — lo que ocurre en actualizaciones mayores y a veces en builds intermedias. Datos reales extraídos de la [tabla de j00ru](https://j00ru.vexillium.org/syscalls/nt/64/):
 
-Si se hardcodea el valor incorrecto, se llama a una función diferente del kernel con los argumentos de otra — comportamiento indefinido, crash, o BSOD.
+| Función | Win7 SP1 | Win10 21H2 | Win11 23H2 |
+|---|---|---|---|
+| `NtAllocateVirtualMemory` | `0x0016` | `0x0018` | `0x0018` |
+| `NtWriteVirtualMemory` | `0x003d` | `0x003a` | `0x003a` |
+| `NtCreateThreadEx` | `0x00a7` | `0x00c1` | `0x00c9` |
+| `NtOpenProcess` | `0x0026` | `0x0026` | `0x0026` |
+| `NtCreateFile` | `0x0055` | `0x0055` | `0x0055` |
+
+La variación no es homogénea: `NtCreateFile` lleva en `0x55` desde Windows 7, mientras que `NtCreateThreadEx` ha cambiado tres veces — incluso entre Win10 y Win11. Si se hardcodea el valor incorrecto, se invoca una función de kernel diferente con los argumentos de otra: comportamiento indefinido, crash, o BSOD.
 
 **SysWhispers** (y sus variantes SysWhispers2, SysWhispers3) resuelven esto generando código que detecta la versión de Windows en tiempo de ejecución y elige el SSN correspondiente de una tabla compilada:
 
