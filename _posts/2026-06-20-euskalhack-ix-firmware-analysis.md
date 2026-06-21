@@ -139,10 +139,11 @@ session.fuzz()
 
 ```bash
 # Fuzzing de binario ARM en QEMU sin código fuente
-AFL_USE_QEMU=1 afl-fuzz \
+# -Q activa QEMU mode (instrumentación sin código fuente)
+afl-fuzz -Q \
   -i corpus/ \
   -o findings/ \
-  -- qemu-arm /bin/httpd @@
+  -- /bin/httpd @@
 ```
 
 AFL++ con QEMU mode instrumenta el binario para medir **cobertura de código** y guiar el fuzzing hacia paths no explorados. Más potente que Boofuzz para bugs en código interno no expuesto en la interfaz de red.
@@ -236,8 +237,6 @@ Para encontrar UART: medir con multímetro los pads sin etiquetar en el PCB busc
 | OTA sin verificación de firma | MITM en la descarga o servidor comprometido |
 | Firmware downgrade | El dispositivo acepta versiones anteriores con vulnerabilidades conocidas |
 | Supply chain | Comprometer el servidor de actualizaciones → todos los dispositivos infectados |
-
----
 
 ---
 

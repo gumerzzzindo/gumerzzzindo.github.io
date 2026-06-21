@@ -73,14 +73,17 @@ La distancia al objeto = diferencia de frecuencia entre señal emitida y refleja
 
 ## SDR (Software Defined Radio)
 
-Radio implementada por software en lugar de hardware dedicado. Con un dongle RTL-SDR (~10 €) y software libre puedes:
-- Recibir señales de radar Ka de la Guardia Civil en tiempo real
-- Analizar la forma de onda (CW vs FMCW, ancho de banda, frecuencia exacta)
-- Medir el espectro sin instrumentación de laboratorio
+Radio implementada por software en lugar de hardware dedicado. Con hardware SDR y software libre puedes analizar señales de radar:
+
+> ⚠️ **Limitación importante:** Un dongle RTL-SDR (~10 €) solo llega hasta ~1.766 GHz. **No puede recibir señales de 24 GHz ni de banda Ka (26.5-40 GHz)**. Para monitorizar radares de tráfico necesitas hardware específico: un LNB de satélite como downconverter + RTL-SDR (que desplaza Ka a L-band), o equipos SDR de rango alto (HackRF, USRP) con mezcladores externos.
+
+Lo que sí puedes hacer con RTL-SDR para aprender:
+- Analizar señales de radar de corto alcance en 24 GHz ISM con hardware adicional
+- Medir espectro en frecuencias bajas (FM, ADS-B, GSM)
 
 ```bash
-# Escuchar frecuencias Ka con RTL-SDR
-rtl_sdr -f 24.15e9 -s 2.4e6 - | gqrx
+# Escuchar L-band (señal Ka downconvertida por LNB) con RTL-SDR
+rtl_sdr -f 1.5e9 -s 2.4e6 - | gqrx
 ```
 
 Software: **GNU Radio**, **Gqrx**, **SDRAngel**, **SDR#** (Windows).
@@ -206,8 +209,6 @@ Estándar en radar, GPS, navegación inercial, guiado de misiles.
 | Medición de velocidad | Nativa (Doppler) | Requiere múltiples pulsos |
 | Detectable con SDR | Sí | No (infrarrojo, no RF) |
 | Coste | Bajo | Alto |
-
----
 
 ---
 
