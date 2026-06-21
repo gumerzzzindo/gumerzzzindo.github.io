@@ -5,7 +5,7 @@ date: 2026-06-20
 permalink: /conference/euskalhack-ix/
 excerpt: "Notas técnicas del EuskalHack IX (Donostia, junio 2026): IA agéntica, insiders, IoT, cajeros en AWS, radar ESP32, firmware y evasión de EDR con minifilters."
 categories: [conference]
-tags: [euskalhack, euskalhack-ix, donostia, 2026, offensive-security, kernel, iot, ai, atm, radar, firmware]
+tags: [euskalhack, euskalhack-ix, donostia, "2026", offensive-security, kernel, iot, ai, atm, radar, firmware]
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
