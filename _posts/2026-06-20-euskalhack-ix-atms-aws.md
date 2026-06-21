@@ -200,8 +200,6 @@ Defensa contra jackpotting:
 
 ---
 
----
-
 ## EuskalHack IX — Serie completa
 
 | # | Post |

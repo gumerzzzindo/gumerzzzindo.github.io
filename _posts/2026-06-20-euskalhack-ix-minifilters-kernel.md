@@ -289,8 +289,6 @@ El ransomware moderno usa la misma arquitectura en sentido contrario: un minifil
 
 ---
 
----
-
 ## EuskalHack IX — Serie completa
 
 | # | Post |
