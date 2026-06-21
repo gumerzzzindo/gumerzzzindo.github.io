@@ -9,6 +9,8 @@ tags: [euskalhack, euskalhack-ix, insider-threat, ueba, xdr, siem, palo-alto, dl
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
+header:
+  og_image: /assets/images/og-preview.png
 ---
 
 > **TL;DR (EN):** Insider threat detection using Palo Alto CORTEX XSIAM. The three pillars: behavioral complexity (UEBA baseline), visibility (endpoints + network + identity), and identity federation. Key attacker techniques: GraalVM abuse, timestomping, LNK persistence. Defenses: PAM, DLP, CASB, Canary Tokens. Talk by Rubén Darío Castillo at EuskalHack IX, June 2026.
@@ -200,4 +202,17 @@ Implementación gratuita: [canarytokens.org](https://canarytokens.org)
 
 ---
 
-*← [Volver al índice de EuskalHack IX](/conference/euskalhack-ix/)*
+---
+
+## EuskalHack IX — Serie completa
+
+| # | Post |
+|---|------|
+| Índice | [Notas técnicas — todas las charlas](/conference/euskalhack-ix/) |
+| 1 | [Agentic AI Supremacy — Is your AI a double-agent?](/conference/euskalhack-ix-agentic-ai/) |
+| 2 | **Insiders: detección de amenazas internas** ← estás aquí |
+| 3 | [Hackeando videoporteros — root sin llamar al timbre](/conference/euskalhack-ix-videoportero-iot/) |
+| 4 | [ATMs conectados a AWS: ¿qué podría salir mal?](/conference/euskalhack-ix-atms-aws/) |
+| 5 | [Radar real con ESP32 por menos de 15€](/conference/euskalhack-ix-radar-esp32/) |
+| 6 | [Análisis de vulnerabilidades de firmware](/conference/euskalhack-ix-firmware-analysis/) |
+| 7 | [Minifilters: Owning the High (and Low) Ground](/conference/euskalhack-ix-minifilters-kernel/) |

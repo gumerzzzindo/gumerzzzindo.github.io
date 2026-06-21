@@ -9,6 +9,8 @@ tags: [euskalhack, euskalhack-ix, iot, embedded, arm, rop, buffer-overflow, goah
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
+header:
+  og_image: /assets/images/og-preview.png
 ---
 
 > **TL;DR (EN):** Full root on a Grandstream video doorbell. Two vulnerabilities: CVE-2020-5763 (command injection in GoAhead) and a strcpy() stack buffer overflow used for the ROP chain. ARM64 ROP chain with ASLR bypass, dup2() for reverse shell, plaintext credentials in /etc/sys_default_user. Exploit "opensesame" by danigargu. Talk by Jose Luis Verdeguer at EuskalHack IX, June 2026.
@@ -212,4 +214,17 @@ Los videoporteros usan SIP para VoIP. Sin SRTP, el audio va en claro y es interc
 
 ---
 
-*← [Volver al índice de EuskalHack IX](/conference/euskalhack-ix/)*
+---
+
+## EuskalHack IX — Serie completa
+
+| # | Post |
+|---|------|
+| Índice | [Notas técnicas — todas las charlas](/conference/euskalhack-ix/) |
+| 1 | [Agentic AI Supremacy — Is your AI a double-agent?](/conference/euskalhack-ix-agentic-ai/) |
+| 2 | [Insiders: detección de amenazas internas](/conference/euskalhack-ix-insiders-ueba/) |
+| 3 | **Hackeando videoporteros — root sin llamar al timbre** ← estás aquí |
+| 4 | [ATMs conectados a AWS: ¿qué podría salir mal?](/conference/euskalhack-ix-atms-aws/) |
+| 5 | [Radar real con ESP32 por menos de 15€](/conference/euskalhack-ix-radar-esp32/) |
+| 6 | [Análisis de vulnerabilidades de firmware](/conference/euskalhack-ix-firmware-analysis/) |
+| 7 | [Minifilters: Owning the High (and Low) Ground](/conference/euskalhack-ix-minifilters-kernel/) |

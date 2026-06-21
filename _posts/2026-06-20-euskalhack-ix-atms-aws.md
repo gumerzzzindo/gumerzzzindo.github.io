@@ -9,6 +9,8 @@ tags: [euskalhack, euskalhack-ix, atm, aws, iot, xfs, jackpotting, dma, pci-dss,
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
+header:
+  og_image: /assets/images/og-preview.png
 ---
 
 > **TL;DR (EN):** ATM security deep-dive: XFS middleware stack, jackpotting malware (Ploutus/Tyupkin), DMA attacks via PCIe, shimming can't clone EMV chips (unique Transaction Cryptogram per transaction). Modern vector: ATM connected to AWS IoT Core with wildcard IAM policy and disabled Kernel DMA Protection → direct RAM access. Talk by Raquel Gálvez at EuskalHack IX, June 2026.
@@ -198,4 +200,17 @@ Defensa contra jackpotting:
 
 ---
 
-*← [Volver al índice de EuskalHack IX](/conference/euskalhack-ix/)*
+---
+
+## EuskalHack IX — Serie completa
+
+| # | Post |
+|---|------|
+| Índice | [Notas técnicas — todas las charlas](/conference/euskalhack-ix/) |
+| 1 | [Agentic AI Supremacy — Is your AI a double-agent?](/conference/euskalhack-ix-agentic-ai/) |
+| 2 | [Insiders: detección de amenazas internas](/conference/euskalhack-ix-insiders-ueba/) |
+| 3 | [Hackeando videoporteros — root sin llamar al timbre](/conference/euskalhack-ix-videoportero-iot/) |
+| 4 | **ATMs conectados a AWS: ¿qué podría salir mal?** ← estás aquí |
+| 5 | [Radar real con ESP32 por menos de 15€](/conference/euskalhack-ix-radar-esp32/) |
+| 6 | [Análisis de vulnerabilidades de firmware](/conference/euskalhack-ix-firmware-analysis/) |
+| 7 | [Minifilters: Owning the High (and Low) Ground](/conference/euskalhack-ix-minifilters-kernel/) |

@@ -9,6 +9,8 @@ tags: [euskalhack, euskalhack-ix, agentic-ai, llm, prompt-injection, rag, mcp, o
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
+header:
+  og_image: /assets/images/og-preview.png
 ---
 
 > **TL;DR (EN):** Agentic AI systems (autonomous, tool-using, memory-persistent) introduce a new attack surface: memory injection, RAG poisoning, agent-in-the-middle, and poisoned marketplace skills. The root issue is Excessive Agency (OWASP LLM08) — agents with too many permissions and no sandboxing. Talk by Roger Sanz at EuskalHack IX, Donostia, June 2026.
@@ -184,4 +186,17 @@ Sin restricciones, un agente puede ejecutar código arbitrario, leer ficheros, e
 
 ---
 
-*← [Volver al índice de EuskalHack IX](/conference/euskalhack-ix/)*
+---
+
+## EuskalHack IX — Serie completa
+
+| # | Post |
+|---|------|
+| Índice | [Notas técnicas — todas las charlas](/conference/euskalhack-ix/) |
+| 1 | **Agentic AI Supremacy** ← estás aquí |
+| 2 | [Insiders: detección de amenazas internas](/conference/euskalhack-ix-insiders-ueba/) |
+| 3 | [Hackeando videoporteros — root sin llamar al timbre](/conference/euskalhack-ix-videoportero-iot/) |
+| 4 | [ATMs conectados a AWS: ¿qué podría salir mal?](/conference/euskalhack-ix-atms-aws/) |
+| 5 | [Radar real con ESP32 por menos de 15€](/conference/euskalhack-ix-radar-esp32/) |
+| 6 | [Análisis de vulnerabilidades de firmware](/conference/euskalhack-ix-firmware-analysis/) |
+| 7 | [Minifilters: Owning the High (and Low) Ground](/conference/euskalhack-ix-minifilters-kernel/) |

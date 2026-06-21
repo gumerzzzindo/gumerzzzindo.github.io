@@ -9,6 +9,8 @@ tags: [euskalhack, euskalhack-ix, windows-kernel, minifilter, edr-evasion, bindf
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
+header:
+  og_image: /assets/images/og-preview.png
 ---
 
 > **TL;DR (EN):** Complete EDR evasion on Windows without kernel patching. Technique: register a malicious Cloud Files sync provider, perform double hydration (first delivers legitimate goodware for EDR to approve, second delivers malware referenced only by NTFS File Reference Number with no visible path), execute via NtCreateProcessEx(FRN) — EDR sees no suspicious path. bindflt.sys (altitude ~409900) operates above most AV drivers (~320000). No SSDT patching, no PatchGuard trigger. Talk by Kurosh Dabbagh (BlackArrow/Tarlogic, GitHub @kudaes) at EuskalHack IX, June 2026.
@@ -287,4 +289,17 @@ El ransomware moderno usa la misma arquitectura en sentido contrario: un minifil
 
 ---
 
-*← [Volver al índice de EuskalHack IX](/conference/euskalhack-ix/)*
+---
+
+## EuskalHack IX — Serie completa
+
+| # | Post |
+|---|------|
+| Índice | [Notas técnicas — todas las charlas](/conference/euskalhack-ix/) |
+| 1 | [Agentic AI Supremacy — Is your AI a double-agent?](/conference/euskalhack-ix-agentic-ai/) |
+| 2 | [Insiders: detección de amenazas internas](/conference/euskalhack-ix-insiders-ueba/) |
+| 3 | [Hackeando videoporteros — root sin llamar al timbre](/conference/euskalhack-ix-videoportero-iot/) |
+| 4 | [ATMs conectados a AWS: ¿qué podría salir mal?](/conference/euskalhack-ix-atms-aws/) |
+| 5 | [Radar real con ESP32 por menos de 15€](/conference/euskalhack-ix-radar-esp32/) |
+| 6 | [Análisis de vulnerabilidades de firmware](/conference/euskalhack-ix-firmware-analysis/) |
+| 7 | **Minifilters: Owning the High (and Low) Ground** ← estás aquí |

@@ -9,6 +9,8 @@ tags: [euskalhack, euskalhack-ix, esp32, radar, doppler, fmcw, sdr, dsp, hardwar
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
+header:
+  og_image: /assets/images/og-preview.png
 ---
 
 > **TL;DR (EN):** Building a functional speed radar with HLK-LD2451 module (24 GHz, ~€5) connected via UART to an ESP32 — total cost under €15. Core signal processing: FFT for distance (FMCW beat frequency), Range-Doppler Map, CFAR detection, Kalman filter for smoothing. Traffic police in Spain use Ka band (26.5–40 GHz). Talk by Pedro Candel (cs3stec) at EuskalHack IX, June 2026.
@@ -207,4 +209,17 @@ Estándar en radar, GPS, navegación inercial, guiado de misiles.
 
 ---
 
-*← [Volver al índice de EuskalHack IX](/conference/euskalhack-ix/)*
+---
+
+## EuskalHack IX — Serie completa
+
+| # | Post |
+|---|------|
+| Índice | [Notas técnicas — todas las charlas](/conference/euskalhack-ix/) |
+| 1 | [Agentic AI Supremacy — Is your AI a double-agent?](/conference/euskalhack-ix-agentic-ai/) |
+| 2 | [Insiders: detección de amenazas internas](/conference/euskalhack-ix-insiders-ueba/) |
+| 3 | [Hackeando videoporteros — root sin llamar al timbre](/conference/euskalhack-ix-videoportero-iot/) |
+| 4 | [ATMs conectados a AWS: ¿qué podría salir mal?](/conference/euskalhack-ix-atms-aws/) |
+| 5 | **Radar real con ESP32 por menos de 15€** ← estás aquí |
+| 6 | [Análisis de vulnerabilidades de firmware](/conference/euskalhack-ix-firmware-analysis/) |
+| 7 | [Minifilters: Owning the High (and Low) Ground](/conference/euskalhack-ix-minifilters-kernel/) |

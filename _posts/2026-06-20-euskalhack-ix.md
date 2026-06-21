@@ -9,6 +9,8 @@ tags: [euskalhack, euskalhack-ix, donostia, "2026", offensive-security, kernel, 
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
+header:
+  og_image: /assets/images/og-preview.png
 ---
 
 > **TL;DR (EN):** Personal technical notes from EuskalHack Security Congress IX (Donostia, June 19–20 2026). Seven talks covering agentic AI attacks, insider threat detection, IoT exploitation, ATM/AWS security, radar with ESP32, firmware analysis, and Windows kernel minifilter evasion. Full write-up per talk below.

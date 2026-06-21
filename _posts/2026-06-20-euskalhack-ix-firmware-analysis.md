@@ -9,6 +9,8 @@ tags: [euskalhack, euskalhack-ix, firmware, embedded, qemu, fuzzing, binwalk, gh
 toc: true
 toc_sticky: true
 series: "EuskalHack IX"
+header:
+  og_image: /assets/images/og-preview.png
 ---
 
 > **TL;DR (EN):** Firmware vulnerability analysis without physical hardware: Binwalk extraction, Ghidra static analysis, QEMU emulation with virtual MMIO peripherals (the main challenge), Boofuzz for network fuzzing, AFL++ QEMU mode for binary fuzzing. Tool "Perun" automates partial emulation. Talk by Alex Agustín Maiza at EuskalHack IX, June 2026.
@@ -237,4 +239,17 @@ Para encontrar UART: medir con multímetro los pads sin etiquetar en el PCB busc
 
 ---
 
-*← [Volver al índice de EuskalHack IX](/conference/euskalhack-ix/)*
+---
+
+## EuskalHack IX — Serie completa
+
+| # | Post |
+|---|------|
+| Índice | [Notas técnicas — todas las charlas](/conference/euskalhack-ix/) |
+| 1 | [Agentic AI Supremacy — Is your AI a double-agent?](/conference/euskalhack-ix-agentic-ai/) |
+| 2 | [Insiders: detección de amenazas internas](/conference/euskalhack-ix-insiders-ueba/) |
+| 3 | [Hackeando videoporteros — root sin llamar al timbre](/conference/euskalhack-ix-videoportero-iot/) |
+| 4 | [ATMs conectados a AWS: ¿qué podría salir mal?](/conference/euskalhack-ix-atms-aws/) |
+| 5 | [Radar real con ESP32 por menos de 15€](/conference/euskalhack-ix-radar-esp32/) |
+| 6 | **Análisis de vulnerabilidades de firmware** ← estás aquí |
+| 7 | [Minifilters: Owning the High (and Low) Ground](/conference/euskalhack-ix-minifilters-kernel/) |
