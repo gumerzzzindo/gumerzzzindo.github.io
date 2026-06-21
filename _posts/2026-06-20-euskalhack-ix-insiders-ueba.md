@@ -71,7 +71,7 @@ El 60% de los incidentes de datos involucran a un actor interno (empleado malici
 Las extensiones de IDE y navegadores son un vector creciente:
 - **VS Code Marketplace** — extensiones maliciosas con acceso completo al filesystem y variables de entorno
 - **Firefox / Chrome Extensions** — acceso a cookies, localStorage, tráfico web
-- **NEW API GitHub / QuantumNous** — herramienta para detección de secretos expuestos en repos públicos
+- **GitHub Secret Scanning** — funcionalidad nativa de GitHub para detectar secretos (API keys, tokens) expuestos en repos públicos, incluyendo historial de commits
 
 ---
 

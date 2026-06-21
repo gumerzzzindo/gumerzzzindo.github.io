@@ -15,7 +15,7 @@ series: "EuskalHack IX"
 
 ---
 
-EuskalHack es el congreso de seguridad informática organizado por la asociación homónima en Euskadi. La IX edición reunió investigadores de toda España con charlas técnicas de primer nivel. Estas son mis notas personales enriquecidas tras las charlas del **viernes 19 de junio**.
+EuskalHack es el congreso de seguridad informática organizado por la asociación homónima en Euskadi. La IX edición reunió investigadores de toda España con charlas técnicas de primer nivel. Estas son mis notas personales enriquecidas tras las charlas del **viernes 19 de junio de 2026** (publicadas el día 20).
 
 ## Índice de charlas
 

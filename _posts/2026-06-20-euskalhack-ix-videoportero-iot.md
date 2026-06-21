@@ -3,7 +3,7 @@ layout: single
 title: "EuskalHack IX — Hackeando videoporteros: acceso root sin llamar al timbre"
 date: 2026-06-20
 permalink: /conference/euskalhack-ix-videoportero-iot/
-excerpt: "Root completo sobre Grandstream via buffer overflow en GoAhead (CVE-2020-5763). ROP chain en ARM64 con ASLR, dup2() para reverse shell, credenciales en claro en /etc/sys_default_user."
+excerpt: "Root completo sobre Grandstream: CVE-2020-5763 (command injection en GoAhead) + buffer overflow strcpy(). ROP chain en ARM64 con ASLR, dup2() para reverse shell, credenciales en claro en /etc/sys_default_user."
 categories: [conference]
 tags: [euskalhack, euskalhack-ix, iot, embedded, arm, rop, buffer-overflow, goahead, grandstream, cve-2020-5763]
 toc: true
@@ -11,7 +11,7 @@ toc_sticky: true
 series: "EuskalHack IX"
 ---
 
-> **TL;DR (EN):** Full root on a Grandstream video doorbell via strcpy() buffer overflow in embedded GoAhead web server (CVE-2020-5763). ARM64 ROP chain with ASLR bypass, dup2() for reverse shell, plaintext credentials in /etc/sys_default_user. Exploit "opensesame" by danigargu. Talk by Jose Luis Verdeguer at EuskalHack IX, June 2026.
+> **TL;DR (EN):** Full root on a Grandstream video doorbell. Two vulnerabilities: CVE-2020-5763 (command injection in GoAhead) and a strcpy() stack buffer overflow used for the ROP chain. ARM64 ROP chain with ASLR bypass, dup2() for reverse shell, plaintext credentials in /etc/sys_default_user. Exploit "opensesame" by danigargu. Talk by Jose Luis Verdeguer at EuskalHack IX, June 2026.
 
 ---
 
@@ -45,7 +45,7 @@ series: "EuskalHack IX"
 
 ### CVE-2020-5763
 
-Vulnerabilidad de **inyección de comandos** en GoAhead. Afecta a múltiples fabricantes. Permite ejecución remota de código sin autenticación en versiones vulnerables.
+Vulnerabilidad de **inyección de comandos** en GoAhead. Afecta a múltiples fabricantes. Permite ejecución remota de código sin autenticación en versiones vulnerables. En el caso de Grandstream, el exploit combina esta inyección con un **buffer overflow via `strcpy()`** (descrito abajo) para construir el ROP chain que entrega la shell.
 
 ---
 

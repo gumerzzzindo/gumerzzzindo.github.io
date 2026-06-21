@@ -156,7 +156,7 @@ El atacante puede envenenar cualquier paso: el razonamiento (via contexto), la a
 |-----------|------------------|
 | **LangChain / LangGraph** | El más extendido, mayor base de PoCs de ataque públicos |
 | **CrewAI / AutoGen** | Multi-agente: un agente comprometido puede comprometer a sus vecinos |
-| **MCP** (Anthropic) | Un servidor MCP malicioso = Poisoned Skill en la práctica |
+| **MCP** (Anthropic) | Protocolo legítimo y abierto para herramientas de agentes; un **servidor MCP malicioso** publicado en marketplaces equivale a una Poisoned Skill |
 
 ### Confused Deputy Problem
 
