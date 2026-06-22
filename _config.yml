@@ -109,7 +109,7 @@ social:
 analytics:
   provider               : "google-gtag"
   google:
-    tracking_id          : "G-542461324"
+    tracking_id          : "G-CZ4B0ZKKP5"
     anonymize_ip         : false
 
 
