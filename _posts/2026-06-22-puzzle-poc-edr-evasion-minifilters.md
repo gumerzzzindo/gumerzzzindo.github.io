@@ -3,8 +3,8 @@ layout: single
 title: "Replicando Puzzle: evasión completa de EDR con Cloud Files y minifilters"
 date: 2026-06-22
 categories: [malware, tutoriales]
-tags: [edr-evasion, windows-kernel, minifilter, cldflt, bindflt, cloud-files, mimikatz, flare-vm, poc, rust]
-excerpt: "Replicación paso a paso del PoC de Kurosh Dabbagh (@kudaes) presentado en EuskalHack IX: doble hidratación via Cloud Files API para escribir malware en disco sin que el AV lo escanee. Mimikatz ejecutándose con Windows Defender activo."
+tags: [edr-evasion, windows-kernel, minifilter, cldflt, bindflt, cloud-files, mimikatz, flare-vm, poc, rust, fortiedr]
+excerpt: "Replicación paso a paso del PoC de Kurosh Dabbagh (@kudaes) presentado en EuskalHack IX: doble hidratación via Cloud Files API para escribir malware en disco sin que el AV lo escanee. Mimikatz ejecutándose con Windows Defender y FortiEDR activos."
 permalink: /malware/puzzle-poc-edr-evasion-minifilters/
 header:
   og_image: /assets/images/og-preview.png
@@ -231,7 +231,7 @@ Clic derecho sobre `C:\Temp\test\notmimi.exe` → Propiedades → OK.
 
 {% include figure image_path="/assets/images/puzzle-poc-win.png" caption="Properties de notmimi.exe: 1.355.264 bytes — el tamaño exacto de mimikatz.exe. Defender no generó ninguna alerta." %}
 
-El tamaño **1,29 MB (1.355.264 bytes)** confirma que mimikatz está en disco: certutil.exe pesa ~1,7 MB, mimikatz pesa exactamente 1.355.264 bytes.
+El tamaño confirma que mimikatz está en disco: certutil.exe pesa ~1,7 MB, mimikatz pesa exactamente 1.355.264 bytes.
 
 Segunda ejecución:
 
@@ -240,6 +240,14 @@ C:\Temp\test\notmimi.exe
 ```
 
 Se abre la ventana de mimikatz. **Windows Defender no genera ninguna alerta.**
+
+### Resultado con FortiEDR
+
+La técnica fue probada también en una máquina con **FortiEDR activo** ("FortiEDRProtección HABILITADA" visible en la bandeja del sistema). Resultado idéntico:
+
+{% include figure image_path="/assets/images/puzzle-poc-fortiedr.jpg" caption="Mimikatz 2.2.0 x64 ejecutándose con FortiEDR habilitado. El comando 'coffee' confirma ejecución completa. Sin alertas del EDR." %}
+
+Mimikatz ejecuta `coffee` sin ninguna intervención del EDR. Esto confirma lo que Dabbagh documentó en la charla: *"This same behavior has also been detected in numerous EDRs"* — la evasión no es específica de Windows Defender, sino que afecta a EDRs comerciales que confían en la ausencia de modificaciones en USN Journal y MFT para decidir si re-analizar un binario.
 
 ---
 
