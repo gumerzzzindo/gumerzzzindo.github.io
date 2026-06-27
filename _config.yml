@@ -120,6 +120,7 @@ author:
   bio              : "Malware analyst. Análisis estático y dinámico, ingeniería inversa (PE, drivers, VBA), CTFs y pentesting ofensivo."
   location         : "Bilbao, ES"
   email            :
+  # fediverse      : "@you@instance.social"  # used for fediverse:creator meta tag
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
@@ -128,7 +129,7 @@ author:
       icon: "fab fa-fw fa-twitter-square"
       url: "https://x.com/gumerzzzindo999"
     - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
+      icon: "fas fa-fw fa-square-envelope"
       # url: "mailto:your.name@email.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -168,6 +169,7 @@ exclude:
   - gulpfile.js
   - LICENSE
   - log
+  - minimal-mistakes-jekyll.gemspec
   - node_modules
   - package.json
   - package-lock.json
