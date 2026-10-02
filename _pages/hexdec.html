@@ -1,0 +1,295 @@
+---
+layout: single
+title: "Calculadora hex / dec + tabla ASCII"
+permalink: /hex/
+author_profile: false
+nav_exclude: true
+search: false
+sitemap: false
+---
+
+<style>
+.hxbox{max-width:720px;margin:0 auto}
+.hxbox h2{margin-top:1.6em}
+.hxpanel{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px;margin-bottom:10px}
+.hxdisp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:right;padding:10px 12px;background:#010409;border:1px solid #30363d;border-radius:8px;overflow-x:auto;white-space:nowrap}
+.hxprimary{font-size:1.45rem;color:#7ee787;min-height:1.5em;font-weight:700}
+.hxsecondary{font-size:.82rem;color:#58a6ff;min-height:1.2em}
+.hxerr{color:#ff7b72;font-size:.8rem;min-height:1.1em;text-align:right}
+.hxtabs{display:flex;gap:6px;margin:10px 0}
+.hxtabs button{flex:1;background:#161b22;border:1px solid #30363d;color:#c9d1d9;border-radius:8px;padding:8px 0;cursor:pointer;font-weight:600;font-family:ui-monospace,monospace}
+.hxtabs button.on{background:#1f6feb33;border-color:#58a6ff;color:#79c0ff}
+.hxgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.hxgrid button{background:#161b22;border:1px solid #30363d;color:#c9d1d9;border-radius:8px;padding:10px 0;cursor:pointer;font-family:ui-monospace,monospace;font-size:1rem}
+.hxgrid button:hover{border-color:#58a6ff}
+.hxgrid button.op{color:#79c0ff;font-weight:700}
+.hxgrid button.eq{background:#238636;color:#fff;border-color:#2ea043;font-weight:700}
+.hxgrid button.danger{color:#ff7b72}
+.hxgrid button:disabled{opacity:.25;cursor:not-allowed}
+.hxhexrow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px}
+.hxhexrow button{background:#161b22;border:1px solid #30363d;color:#7ee787;border-radius:8px;padding:9px 0;cursor:pointer;font-family:ui-monospace,monospace;font-size:1rem}
+.hxhexrow button:hover{border-color:#7ee787}
+.hxnote{color:#8b949e;font-size:.78rem;margin-top:8px;line-height:1.5}
+#asctablewrap{overflow-x:auto;max-height:65vh;overflow-y:auto}
+#asctable{width:100%;border-collapse:collapse;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem}
+#asctable th{background:#161b22;color:#79c0ff;position:sticky;top:0}
+#asctable td,#asctable th{border:1px solid #30363d;padding:4px 8px;text-align:left}
+#asctable tr:hover td{background:#1c2530}
+#asctable .glyph{color:#7ee787;font-weight:700}
+#asctable .ctrl{color:#8b4949}
+.ascfilter{display:flex;gap:10px;align-items:center;margin:8px 0 12px;flex-wrap:wrap}
+.ascfilter input[type=text]{background:#161b22;border:1px solid #30363d;color:#c9d1d9;border-radius:8px;padding:8px 10px;font-family:ui-monospace,monospace;width:230px}
+.ascfilter label{color:#8b949e;font-size:.85rem}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#238636;color:#fff;padding:8px 18px;border-radius:8px;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .4s}
+.toast.show{opacity:1}
+</style>
+
+<div class="hxbox">
+
+<p>Página de uso interno — no está enlazada en ningún sitio del blog; apunta esta URL.</p>
+
+<h2>Calculadora HEX / DEC / BIN</h2>
+
+<div class="hxpanel">
+  <div class="hxtabs">
+    <button id="tab-hex" class="on" onclick="setBase('hex')">HEX</button>
+    <button id="tab-dec" onclick="setBase('dec')">DEC</button>
+    <button id="tab-bin" onclick="setBase('bin')">BIN</button>
+  </div>
+  <div class="hxdisp">
+    <div class="hxsecondary" id="hxaux"></div>
+    <div class="hxprimary" id="hxmain">0</div>
+    <div class="hxerr" id="hxerr"></div>
+  </div>
+  <div class="hxgrid" id="hxkeys"></div>
+  <div class="hxhexrow" id="hxhexrow"></div>
+  <div class="hxnote">Teclado: 0-9 · A-F (hex) · + - * / % · Enter (=) · Backspace · Esc (C) · h/d/b cambian de base. HEX y BIN se muestran a 64-bit en complemento a 2; DEC usa precisión arbitraria; <em>%</em> = módulo.</div>
+</div>
+
+<h2>Tabla ASCII (hex)</h2>
+
+<div class="ascfilter">
+  <input type="text" id="ascq" placeholder="filtra: 41, 0x41, 65, letra, BEL..." oninput="ascFilter()">
+  <label><input type="checkbox" id="ascprint" onchange="ascFilter()"> solo imprimibles</label>
+  <span style="color:#8b949e;font-size:.8rem">click en fila = copiar hex</span>
+</div>
+<div id="asctablewrap">
+<table id="asctable">
+<thead><tr><th>DEC</th><th>HEX</th><th>OCT</th><th>CHAR</th><th>NOMBRE / USO</th></tr></thead>
+<tbody id="ascbody"></tbody>
+</table>
+</div>
+
+</div>
+
+<div class="toast" id="toast">copiado</div>
+
+<script>
+const M64 = 1n << 64n;
+let mode = "hex";
+let cur = "";
+let acc = null;
+let pending = null;
+let err = "";
+
+function bodyOf(s){ return s.startsWith("-") ? s.slice(1) : s; }
+function parseIn(s){
+  if(s === "" || s === "-") return 0n;
+  const sign = s.startsWith("-") ? -1n : 1n;
+  const pre = (mode === "hex") ? "0x" : (mode === "bin") ? "0b" : "";
+  return sign * BigInt(pre + bodyOf(s));
+}
+function wrap64(v){ return ((v % M64) + M64) % M64; }
+function toBase(v, b){
+  const x = (v < 0n && b !== "dec") ? wrap64(v) : v;
+  if(b === "hex") return x.toString(16).toUpperCase();
+  if(b === "bin") return x.toString(2);
+  return v.toString(10);
+}
+function signedDec(v){ return (v < 0n ? "" : "+") + v.toString(10); }
+
+function render(){
+  const val = (cur !== "" && cur !== "-") ? parseIn(cur) : (acc !== null ? acc : 0n);
+  const main = (cur !== "") ? (mode === "hex" ? cur.toUpperCase() : mode === "bin" ? cur : cur) : (acc !== null ? toBase(mode === "hex" ? wrap64(acc) : (mode === "bin" ? wrap64(acc) : acc), mode) : "0");
+  let aux;
+  if(mode === "hex") aux = "dec: " + signedDec(val) + "   ·   bin: " + toBase(wrap64(val), "bin");
+  else if(mode === "dec") aux = "hex: 0x" + toBase(val, "hex") + "   ·   bin: " + toBase(val, "bin");
+  else aux = "hex: 0x" + toBase(wrap64(val), "hex") + "   ·   dec: " + signedDec(val);
+  document.getElementById("hxmain").textContent = main;
+  document.getElementById("hxaux").textContent = aux;
+  document.getElementById("hxerr").textContent = err;
+}
+
+function setBase(b){
+  if(cur !== "" && cur !== "-"){
+    try{ const v = parseIn(cur); cur = (v < 0n) ? (b === "dec" ? v.toString() : "") : (b === "dec" ? v.toString(10) : v.toString(b === "hex" ? 16 : 2).toUpperCase()); }catch(e){ cur = ""; }
+  }
+  mode = b;
+  document.getElementById("tab-hex").className = b === "hex" ? "on" : "";
+  document.getElementById("tab-dec").className = b === "dec" ? "on" : "";
+  document.getElementById("tab-bin").className = b === "bin" ? "on" : "";
+  document.getElementById("hxhexrow").style.display = b === "hex" ? "grid" : "none";
+  buildKeys();
+  render();
+}
+
+function applyOp(op, a, b){
+  switch(op){
+    case "+": return a + b;
+    case "-": return a - b;
+    case "×": return a * b;
+    case "÷": if(b === 0n){ err = "división por cero"; return a; } return a / b;
+    case "%": if(b === 0n){ err = "módulo por cero"; return a; } return a % b;
+  }
+  return b;
+}
+
+const MAXLEN = { hex: 16, dec: 19, bin: 64 };
+function digit(d){
+  err = "";
+  if(mode === "hex" && !/^[0-9A-F]$/.test(d)) return;
+  if(mode === "bin" && !/^[01]$/.test(d)) return;
+  if(cur.replace("-","").length >= MAXLEN[mode]) return;
+  cur += d;
+  render();
+}
+
+function op(o){
+  err = "";
+  const v = (cur !== "" && cur !== "-") ? parseIn(cur) : (acc !== null ? acc : 0n);
+  if(pending !== null){
+    acc = applyOp(pending, acc, v);
+    if(err){ acc = null; pending = null; cur = ""; render(); return; }
+  } else { acc = v; }
+  pending = o;
+  cur = "";
+  render();
+}
+
+function eq(){
+  err = "";
+  if(pending === null) return;
+  const v = (cur !== "" && cur !== "-") ? parseIn(cur) : 0n;
+  acc = applyOp(pending, acc === null ? 0n : acc, v);
+  pending = null;
+  const res = acc;
+  acc = null;
+  if(mode === "dec") cur = res.toString();
+  else { cur = toBase(wrap64(res), mode); if(res < 0n) err = "negativo → mostrado en complemento a 2 (64 bits)"; }
+  render();
+}
+
+function clearAll(){ cur = ""; acc = null; pending = null; err = ""; render(); }
+function back(){ if(err){ clearAll(); return; } if(cur){ cur = cur.slice(0, -1); render(); } }
+function negate(){ if(mode !== "dec" || cur === "") return; cur = cur.startsWith("-") ? cur.slice(1) : "-" + cur; render(); }
+
+const ROWS = [
+  [["C", clearAll, "danger"], ["⌫", back, "op"], ["%", () => op("%"), "op"], ["÷", () => op("÷"), "op"]],
+  [["7", () => digit("7")], ["8", () => digit("8")], ["9", () => digit("9")], ["×", () => op("×"), "op"]],
+  [["4", () => digit("4")], ["5", () => digit("5")], ["6", () => digit("6")], ["−", () => op("-"), "op"]],
+  [["1", () => digit("1")], ["2", () => digit("2")], ["3", () => digit("3")], ["+", () => op("+"), "op"]],
+  [["0", () => digit("0")], ["±", negate, "op"], ["=", eq, "eq"]],
+];
+const HEXD = ["A","B","C","D","E","F"];
+
+function buildKeys(){
+  const g = document.getElementById("hxkeys");
+  g.innerHTML = "";
+  for(const row of ROWS){
+    for(const [label, fn, cls] of row){
+      const b = document.createElement("button");
+      b.textContent = label;
+      if(cls) b.className = cls;
+      const num = "0123456789".includes(label);
+      if(num && mode === "bin" && label !== "0" && label !== "1") b.disabled = true;
+      if(label === "±" && mode !== "dec") b.disabled = true;
+      b.onclick = fn;
+      g.appendChild(b);
+    }
+  }
+  const hr = document.getElementById("hxhexrow");
+  hr.innerHTML = "";
+  for(const d of HEXD){
+    const b = document.createElement("button");
+    b.textContent = d;
+    b.onclick = () => digit(d);
+    hr.appendChild(b);
+  }
+}
+
+document.addEventListener("keydown", function(e){
+  if(document.activeElement && document.activeElement.id === "ascq") return;
+  const k = e.key;
+  if(k >= "0" && k <= "9"){ if(mode !== "bin" || k === "0" || k === "1") digit(k); }
+  else if(mode === "hex" && /^[a-fA-F]$/.test(k)) digit(k.toUpperCase());
+  else if(k === "+") op("+");
+  else if(k === "-") op("-");
+  else if(k === "*" || k === "x") op("×");
+  else if(k === "/"){ op("÷"); }
+  else if(k === "%") op("%");
+  else if(k === "Enter" || k === "="){ e.preventDefault(); eq(); }
+  else if(k === "Backspace") back();
+  else if(k === "Escape") clearAll();
+  else if(k.toLowerCase() === "h") setBase("hex");
+  else if(k.toLowerCase() === "d") setBase("dec");
+  else if(k.toLowerCase() === "b") setBase("bin");
+});
+setBase("hex");
+
+/* ===== tabla ASCII ===== */
+const CTRL = ["NUL","SOH","STX","ETX","EOT","ENQ","ACK","BEL","BS","HT","LF","VT","FF","CR","SO","SI","DLE","DC1","DC2","DC3","DC4","NAK","SYN","ETB","CAN","EM","SUB","ESC","FS","GS","RS","US"];
+const CTRLDESC = {
+ NUL:"nulo", SOH:"start of heading", STX:"start of text", ETX:"end of text",
+ EOT:"end of transmission", ENQ:"enquiry", ACK:"acknowledge", BEL:"campana (\\a)",
+ BS:"retroceso (\\b)", HT:"tab horizontal (\\t)", LF:"salto de línea (\\n)", VT:"tab vertical",
+ FF:"salto de página (\\f)", CR:"retorno de carro (\\r)", SO:"shift out", SI:"shift in",
+ DLE:"data link escape", DC1:"XON (control de flujo)", DC2:"device control 2",
+ DC3:"XOFF (control de flujo)", DC4:"device control 4", NAK:"negative ack",
+ SYN:"synchronous idle", ETB:"end of transmission block", CAN:"cancel", EM:"end of medium",
+ SUB:"sustituir", ESC:"escape (\\e)", FS:"file separator", GS:"group separator",
+ RS:"record separator", US:"unit separator"
+};
+const tb = document.getElementById("ascbody");
+for(let i = 0; i <= 127; i++){
+  const tr = document.createElement("tr");
+  const c0 = tr.insertCell(-1), c1 = tr.insertCell(-1), c2 = tr.insertCell(-1), c3 = tr.insertCell(-1), c4 = tr.insertCell(-1);
+  c0.textContent = i;
+  c1.textContent = "0x" + i.toString(16).toUpperCase().padStart(2, "0");
+  c2.textContent = "0o" + i.toString(8).padStart(3, "0");
+  c3.className = "glyph";
+  let kind;
+  if(i < 32){ c3.textContent = String.fromCharCode(0x2400 + i); c4.textContent = CTRL[i] + " · " + CTRLDESC[CTRL[i]]; c4.className = "ctrl"; kind = "ctrl"; }
+  else if(i === 127){ c3.textContent = "\u2421"; c4.textContent = "DEL · delete"; c4.className = "ctrl"; kind = "ctrl"; }
+  else if(i === 32){ c3.textContent = "\u2423"; c4.textContent = "SP · espacio"; c4.className = "ctrl"; kind = "ctrl"; }
+  else{
+    c3.textContent = String.fromCharCode(i);
+    if(i >= 97 && i <= 122){ c4.textContent = "minúscula"; kind = "minúscula"; }
+    else if(i >= 65 && i <= 90){ c4.textContent = "MAYÚSCULA"; kind = "MAYÚSCULA"; }
+    else if(i >= 48 && i <= 57){ c4.textContent = "dígito"; kind = "dígito"; }
+    else { c4.textContent = "puntuación / símbolo"; kind = "imprimible"; }
+  }
+  tr.onclick = function(){ copy(c1.textContent); };
+  tb.appendChild(tr);
+  tr.dataset.kind = kind;
+}
+function ascFilter(){
+  const qq = document.getElementById("ascq").value.trim().toLowerCase();
+  const only = document.getElementById("ascprint").checked;
+  for(const tr of tb.rows){
+    if(tr.cells.length < 5) continue;
+    const dec = tr.cells[0].textContent;
+    const hex = tr.cells[1].textContent.toLowerCase();
+    const oct = tr.cells[2].textContent;
+    const ch = tr.cells[3].textContent.toLowerCase();
+    const nm = tr.cells[4].textContent.toLowerCase();
+    const isCtrl = tr.dataset.kind === "ctrl";
+    let hit = qq === "" || dec === qq || hex === qq || hex.replace("0x","") === qq || oct === qq || nm.indexOf(qq) !== -1 || ch === qq;
+    const pass = !only || !isCtrl;
+    tr.style.display = (hit && pass) ? "" : "none";
+  }
+}
+function copy(txt){
+  const done = function(){ const t = document.getElementById("toast"); t.className = "toast show"; setTimeout(function(){ t.className = "toast"; }, 900); };
+  if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(done, done); } else { done(); }
+}
+</script>
