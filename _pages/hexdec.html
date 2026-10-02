@@ -3,6 +3,7 @@ layout: single
 title: "Calculadora hex / dec + tabla ASCII"
 permalink: /hex/
 author_profile: false
+comments: false
 nav_exclude: true
 search: false
 sitemap: false
@@ -10,7 +11,8 @@ sitemap: false
 
 <style>
 .hxbox{max-width:720px;margin:0 auto}
-.hxbox h2{margin-top:1.6em}
+.hxbox h2{margin-top:1.6em;text-align:center}
+.hxbox>p{text-align:center}
 .hxpanel{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px;margin-bottom:10px}
 .hxdisp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:right;padding:10px 12px;background:#010409;border:1px solid #30363d;border-radius:8px;overflow-x:auto;white-space:nowrap}
 .hxprimary{font-size:1.45rem;color:#7ee787;min-height:1.5em;font-weight:700}
@@ -37,7 +39,7 @@ sitemap: false
 #asctable tr:hover td{background:#1c2530}
 #asctable .glyph{color:#7ee787;font-weight:700}
 #asctable .ctrl{color:#8b4949}
-.ascfilter{display:flex;gap:10px;align-items:center;margin:8px 0 12px;flex-wrap:wrap}
+.ascfilter{display:flex;justify-content:center;gap:10px;align-items:center;margin:8px 0 12px;flex-wrap:wrap}
 .ascfilter input[type=text]{background:#161b22;border:1px solid #30363d;color:#c9d1d9;border-radius:8px;padding:8px 10px;font-family:ui-monospace,monospace;width:230px}
 .ascfilter label{color:#8b949e;font-size:.85rem}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#238636;color:#fff;padding:8px 18px;border-radius:8px;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .4s}
@@ -45,8 +47,6 @@ sitemap: false
 </style>
 
 <div class="hxbox">
-
-<p>Página de uso interno — no está enlazada en ningún sitio del blog; apunta esta URL.</p>
 
 <h2>Calculadora HEX / DEC / BIN</h2>
 
