@@ -3,12 +3,12 @@ layout: single
 title: "Reto de memoria: la flag viva en argv[0] — munmap, pause y /proc/pid/mem"
 date: 2026-10-08
 categories: [ctf]
-tags: [ctf, forense, memoria, linux, procfs, munmap, gdb, euskalhack]
-excerpt: "Reto mínimo de forense de memoria rescatado del cajón de EuskalHack 2025: munmap sobre la página de argv[0], fgets y pause. Verificado en vivo en Debian 13: el original acaba en SIGSEGV y la técnica real — leer la memoria de un proceso pausado vía /proc/pid/mem — funciona, con la trampa de ptrace_scope incluida."
+tags: [ctf, forense, memoria, linux, procfs, munmap, gdb]
+excerpt: "Mini-reto de forense de memoria de mis pruebas locales alrededor de EuskalHack 2025: munmap sobre la página de argv[0], fgets y pause. Verificado en vivo en Debian 13: el original acaba en SIGSEGV y la técnica real — leer la memoria de un proceso pausado vía /proc/pid/mem — funciona, con la trampa de ptrace_scope incluida."
 permalink: /ctf/reto-memoria-argv0/
 ---
 
-Sigo vaciando el cajón de la edición pasada de EuskalHack (junio 2025): entre las cosas que nunca llegaron al blog estaba este reto diminuto de forense de memoria. Igual que en la serie de [Protostar](/tutoriales/protostar-endian-gdb/), nada reescrito de guías: lo que sigue lleva las **salidas reales** de ejecutarlo hoy en mi Debian 13 (kernel 6.12).
+Vacío el cajón de material de EuskalHack 2025 (junio de ese año). Este mini-reto de forense de memoria está apuntado ahí sin contexto: hoy lo leo como **pruebas locales propias** alrededor de los talleres de rootkits — junto a la fuente hay un binario `test` compilado en la misma época (GCC 12.2.0, Debian 12) que es exactamente este código —, no un reto oficial del evento. Lo publico como lo que es: un ejercicio de memoria forense, verificado. Igual que en la serie de [Protostar](/tutoriales/protostar-endian-gdb/), nada reescrito de guías: lo que sigue lleva las **salidas reales** de ejecutarlo hoy en mi Debian 13 (kernel 6.12).
 
 ## El reto completo
 
@@ -55,7 +55,7 @@ Con la `flag` presente, el original **muere al instante**. El porqué es geometr
 3. La VMA del stack en x86-64 es `VM_GROWSDOWN`: por diseño **solo se expande hacia abajo** (y por debajo de lo que ya está mapeado). No hay camino de vuelta hacia arriba.
 4. `fgets` intenta escribir sobre el agujero → fault sin VMA que lo reclame → **SIGSEGV**. Ni un byte de la flag llegó a memoria.
 
-Es decir: tal cual está escrito, el reto es una autodestrucción pedagógica. O el ponente lo usaba para enseñar esto mismo, o corría sobre particularidades que los apuntes no recogen; lo que sí puedo afirmar es lo que hace hoy en un kernel moderno — y **por qué**.
+Es decir: tal cual está escrito, el reto es una autodestrucción pedagógica. Puede que el propósito original fuera enseñar esto mismo — el fichero no lleva nota alguna que lo aclare y su autor (yo) ya no lo recuerda: probablemente pruebas locales del taller; lo que sí puedo afirmar es lo que hace hoy en un kernel moderno — y **por qué**.
 
 ## La técnica que sí enseña: pausar y leer
 
