@@ -8,7 +8,7 @@ excerpt: "Reto mínimo de forense de memoria rescatado del cajón de EuskalHack 
 permalink: /ctf/reto-memoria-argv0/
 ---
 
-Sigo vaciando el cajón de la edición pasada de EuskalHack (junio 2025): entre las cosas que nunca llegaron al blog estaba este reto diminuto de forense de memoria. Igual que en la serie de [Protostar]({{ "" | absolute_url }}/tutoriales/protostar-endian-gdb/), nada reescrito de guías: lo que sigue lleva las **salidas reales** de ejecutarlo hoy en mi Debian 13 (kernel 6.12).
+Sigo vaciando el cajón de la edición pasada de EuskalHack (junio 2025): entre las cosas que nunca llegaron al blog estaba este reto diminuto de forense de memoria. Igual que en la serie de [Protostar](/tutoriales/protostar-endian-gdb/), nada reescrito de guías: lo que sigue lleva las **salidas reales** de ejecutarlo hoy en mi Debian 13 (kernel 6.12).
 
 ## El reto completo
 
