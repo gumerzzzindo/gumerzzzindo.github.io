@@ -6,10 +6,10 @@ author_profile: true
 description: "Writeups de máquinas HackTheBox y DockerLabs: explotación, escalada de privilegios, CVEs y post-explotación. Soluciones detalladas con metodología reproducible."
 ---
 
-{% assign posts = site.posts | where_exp: "post", "post.categories contains 'writeups' or post.categories contains 'htb' or post.categories contains 'dockerlabs'" %}
-
 <div class="archive">
-  {% for post in posts %}
-    {% include archive-single.html %}
+  {% for post in site.posts %}
+    {% if post.categories contains 'writeups' or post.categories contains 'htb' or post.categories contains 'dockerlabs' %}
+      {% include archive-single.html %}
+    {% endif %}
   {% endfor %}
 </div>
